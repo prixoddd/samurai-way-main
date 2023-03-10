@@ -6,8 +6,8 @@ const MyPosts = () => {
     return (
         <div>
             <div className={s.post}>
-                <MyPost message="Hellow how are you"/>
-                <MyPost message="Nice weather outside"/>
+                <MyPost message="Hellow how are you" countLikes="1"/>
+                <MyPost message="Nice weather outside" countLikes="15"/>
             </div>
         </div>
 
