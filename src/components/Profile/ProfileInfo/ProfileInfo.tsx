@@ -11,7 +11,6 @@ const ProfileInfo = () => {
                     alt="beach"/>
             </div>
             <div className={s.descriptionBlock}>
-                <MyPosts />
             </div>
 
         </div>

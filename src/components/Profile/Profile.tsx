@@ -1,12 +1,20 @@
 import React from 'react';
-import s from "./Profile.module.css";
 import MyPosts from "./MyPosts/MyPosts";
 import ProfileInfo from "./ProfileInfo/ProfileInfo";
+import {ProfilePostDataPropsType} from '../../App';
 
-const Profile = () => {
+export type ProfilePropsType = {
+    state: {
+        myPostData: Array<ProfilePostDataPropsType>
+    }
+    addPost: (s: string) => void
+}
+
+const Profile = (props: ProfilePropsType) => {
     return (
         <>
             <ProfileInfo />
+            <MyPosts addPost={props.addPost} state={props.state}/>
         </>
 
     );
