@@ -11,13 +11,31 @@ type MyDialogItemType = {
 export type StoreType = {
     _state: AppStateTypeMinus
     getState: () => AppStateTypeMinus
-    updateNewPostText: (newText: string) => void
-    addPost: () => void
-    updateNewDialogText: (newDialog: string) => void
-    addDialog: () => void
+    // updateNewPostText: (newText: string) => void
+    // addPost: () => void
+    // updateNewDialogText: (newDialog: string) => void
+    // addDialog: () => void
     _callSubscriber: (state: AppStateTypeMinus) => void
     subscribe: (observer: () => void) => void
+    dispatch: (action: ActionTypes) => void
 }
+
+type AddPostActionType = {
+    type: 'ADD-POST'
+}
+type UpdateNewTextActionType = {
+    type: 'UPDATE.NEW.POST.TEXT'
+    newText: string
+}
+type AddDialogActionType = {
+    type: 'ADD-DIALOG'
+}
+type updateNewDialogTextActionType = {
+    type: 'UPDATE.NEW.DIALOG.TEXT'
+    newDialog: string
+}
+
+export type ActionTypes = AddPostActionType | UpdateNewTextActionType | AddDialogActionType | updateNewDialogTextActionType
 
 
 export let store: StoreType = {
@@ -48,45 +66,77 @@ export let store: StoreType = {
             newDialogText: ""
         }
     },
+    _callSubscriber() {
+        console.log('rerender')
+    },
+
     getState() {
         return this._state
     },
-    updateNewPostText(newText: string){
-        this._state.profilePage.newPostText = newText
-        this._callSubscriber(this._state);
-    },
-    addPost(){
-
-        let newPost: MyPostDataItemType = {
-            message: this._state.profilePage.newPostText,
-            countLikes: "0"
-
-        }
-        this._state.profilePage.myPostData.push(newPost);
-        this._state.profilePage.newPostText = ''
-        this._callSubscriber(this._state);
-    },
-    updateNewDialogText(newDialog: string){
-        this._state.dialogsPage.newDialogText = newDialog
-        this._callSubscriber(this._state);
-    },
-    addDialog(){
-
-        let newDialog: MyDialogItemType = {
-            id: 1,
-            message: this._state.dialogsPage.newDialogText
-
-        }
-        this._state.dialogsPage.dialogsData.push(newDialog)
-        this._state.dialogsPage.newDialogText = ''
-        this._callSubscriber(this._state);
-    },
-    _callSubscriber(){
-        console.log('rerender')
-    },
-    subscribe(observer: () => void){
+    subscribe(observer: () => void) {
         this._callSubscriber = observer
+    },
+
+    // updateNewPostText(newText: string) {
+    //     this._state.profilePage.newPostText = newText
+    //     this._callSubscriber(this._state);
+    // },
+    // addPost() {
+    //
+    //     let newPost: MyPostDataItemType = {
+    //         message: this._state.profilePage.newPostText,
+    //         countLikes: "0"
+    //
+    //     }
+    //     this._state.profilePage.myPostData.push(newPost);
+    //     this._state.profilePage.newPostText = ''
+    //     this._callSubscriber(this._state);
+    // },
+    // updateNewDialogText(newDialog: string) {
+    //     this._state.dialogsPage.newDialogText = newDialog
+    //     this._callSubscriber(this._state);
+    // },
+    // addDialog() {
+    //
+    //     let newDialog: MyDialogItemType = {
+    //         id: 1,
+    //         message: this._state.dialogsPage.newDialogText
+    //
+    //     }
+    //     this._state.dialogsPage.dialogsData.push(newDialog)
+    //     this._state.dialogsPage.newDialogText = ''
+    //     this._callSubscriber(this._state);
+    // },
+
+
+    dispatch(action) {
+        if (action.type === 'ADD-POST') {
+            let newPost: MyPostDataItemType = {
+                message: this._state.profilePage.newPostText,
+                countLikes: "0"
+
+            }
+            this._state.profilePage.myPostData.push(newPost);
+            this._state.profilePage.newPostText = ''
+            this._callSubscriber(this._state);
+        } else if (action.type === 'UPDATE.NEW.POST.TEXT') {
+            this._state.profilePage.newPostText = action.newText
+            this._callSubscriber(this._state);
+        } else if (action.type === 'ADD-DIALOG') {
+            let newDialog: MyDialogItemType = {
+                id: 1,
+                message: this._state.dialogsPage.newDialogText
+
+            }
+            this._state.dialogsPage.dialogsData.push(newDialog)
+            this._state.dialogsPage.newDialogText = ''
+            this._callSubscriber(this._state);
+        } else if (action.type === 'UPDATE.NEW.DIALOG.TEXT') {
+            this._state.dialogsPage.newDialogText = action.newDialog
+            this._callSubscriber(this._state);
+        }
     }
+
 
 }
 
