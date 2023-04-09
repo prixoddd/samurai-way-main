@@ -10,7 +10,8 @@ export let state = {
         myPostData: [
             {message: "Hello how are you", countLikes: "1"},
             {message: "Nice weather outside", countLikes: "15"}
-        ]
+        ],
+        newPostText: 'text for textarea'
     },
     dialogsPage: {
         messagesData: [
@@ -31,13 +32,19 @@ export let state = {
     }
 }
 
-export let addPost = (postMessage: string) => {
+export let addPost = () => {
 
     let newPost: MyPostDataItemType = {
-        message: postMessage,
+        message: state.profilePage.newPostText,
         countLikes: "0"
 
     }
     state.profilePage.myPostData.push(newPost);
+    state.profilePage.newPostText = ''
+    rerenderEntireTree(state);
+}
+
+export let updateNewPostText = (newText: string) => {
+    state.profilePage.newPostText = newText
     rerenderEntireTree(state);
 }

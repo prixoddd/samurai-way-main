@@ -4,17 +4,22 @@ import ProfileInfo from "./ProfileInfo/ProfileInfo";
 import {ProfilePostDataPropsType} from '../../App';
 
 export type ProfilePropsType = {
-    state: {
-        myPostData: Array<ProfilePostDataPropsType>
+    profilePage: {
+        myPostData: Array<ProfilePostDataPropsType>,
+        newPostText: string
     }
-    addPost: (s: string) => void
+    addPost: () => void
+    updateNewPostText: (s: string) => void
 }
 
 const Profile = (props: ProfilePropsType) => {
     return (
         <>
             <ProfileInfo />
-            <MyPosts addPost={props.addPost} state={props.state}/>
+            <MyPosts addPost={props.addPost}
+                     updateNewPostText={props.updateNewPostText}
+                     posts={props.profilePage.myPostData}
+                     newPostText={props.profilePage.newPostText}/>
         </>
 
     );
