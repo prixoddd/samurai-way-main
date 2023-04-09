@@ -1,6 +1,6 @@
-import {addDialog, state, subscribe, updateNewDialogText, addPost, updateNewPostText} from './redux/state';
 import React from 'react';
 import ReactDOM from 'react-dom';
+import {store} from './redux/state';
 import './index.css';
 import App, {
     DialogsItemsDataPropsType,
@@ -23,20 +23,16 @@ export type AppStateTypeMinus = {
 
 }
 
-const rerenderEntireTree = (state: AppStateTypeMinus) => {
+const rerenderEntireTree = () => {
     ReactDOM.render(
         <BrowserRouter>
-            <App appState={state}
-                 addPost={addPost}
-                 updateNewPostText={updateNewPostText}
-                 addDialog={addDialog}
-                 updateNewDialogText={updateNewDialogText}
+            <App store={store}
             />
         </BrowserRouter>,
         document.getElementById('root')
     );
 }
 
-rerenderEntireTree(state)
+rerenderEntireTree()
 
-subscribe(rerenderEntireTree)
+store.subscribe(rerenderEntireTree)
