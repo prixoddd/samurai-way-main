@@ -1,4 +1,8 @@
-import {rerenderEntireTree} from '../render';
+import {AppStateTypeMinus} from '../index';
+
+let onChange = (state: AppStateTypeMinus) => {
+    console.log(state)
+}
 
 type MyPostDataItemType = {
     message: string
@@ -32,7 +36,7 @@ export let state = {
     }
 }
 
-export let addPost = () => {
+export const addPost = () => {
 
     let newPost: MyPostDataItemType = {
         message: state.profilePage.newPostText,
@@ -41,10 +45,14 @@ export let addPost = () => {
     }
     state.profilePage.myPostData.push(newPost);
     state.profilePage.newPostText = ''
-    rerenderEntireTree(state);
+    onChange(state);
 }
 
-export let updateNewPostText = (newText: string) => {
+export const updateNewPostText = (newText: string) => {
     state.profilePage.newPostText = newText
-    rerenderEntireTree(state);
+    onChange(state);
+}
+
+export const subscribe = (observer: (state: AppStateTypeMinus) => void) => {
+onChange = observer
 }
