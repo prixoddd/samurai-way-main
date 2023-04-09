@@ -17,10 +17,7 @@ const MyPosts = (props: MyPostsPropsType) => {
     let newPostElement = React.createRef<HTMLTextAreaElement>();
 
     let addPost = () => {
-
         props.addPost()
-
-
     }
 
     let onPostChange = () => {

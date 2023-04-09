@@ -8,26 +8,40 @@ import {
 } from '../../App';
 
 type DialogsPropsType = {
-    state: {
+    dialogsPage: {
         messagesData: Array<DialogsItemsDataPropsType>,
-        dialogsData: Array<DialogsMessagesDataPropsType>
-    }
+        dialogsData: Array<DialogsMessagesDataPropsType>,
+        newDialogText: string
+    },
+    addDialog: () => void
+    updateNewDialogText: (s: string) => void
 }
 
 const Dialogs = (props: DialogsPropsType) => {
 
-    let newMessage = React.createRef<HTMLTextAreaElement>()
+    let newDialog = React.createRef<HTMLTextAreaElement>()
+
+    let addDialog = () => {
+        props.addDialog()
+    }
+
+    let onDialogChange = () => {
+        if (newDialog.current) {
+            props.updateNewDialogText(newDialog.current?.value)
+        }
+
+    }
 
     return (
         <div className={s.dialogs}>
             <div className={s.dialogsItems}>
-                {props.state.messagesData.map(el => <DialogItem name={el.name} id={el.id}/>)}
+                {props.dialogsPage.messagesData.map(el => <DialogItem name={el.name} id={el.id}/>)}
 
             </div>
             <div className={s.messages}>
-                {props.state.dialogsData.map(el => <Message message={el.message}/>)}
-                <textarea ref={newMessage}></textarea>
-                <button onClick={ () => alert("Hi dude")}>Add post</button>
+                {props.dialogsPage.dialogsData.map(el => <Message message={el.message}/>)}
+                <textarea onChange={onDialogChange} ref={newDialog} value={props.dialogsPage.newDialogText}></textarea>
+                <button onClick={addDialog}>Add post</button>
             </div>
 
 

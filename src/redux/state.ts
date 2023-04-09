@@ -9,13 +9,18 @@ type MyPostDataItemType = {
     countLikes: string
 }
 
+type MyDialogItemType = {
+    id: number
+    message: string
+}
+
 export let state = {
     profilePage: {
         myPostData: [
             {message: "Hello how are you", countLikes: "1"},
             {message: "Nice weather outside", countLikes: "15"}
         ],
-        newPostText: 'text for textarea'
+        newPostText: ''
     },
     dialogsPage: {
         messagesData: [
@@ -32,7 +37,8 @@ export let state = {
             {id: 1, message: "How is your day"},
             {id: 1, message: "trololololo"},
             {id: 1, message: "sdfsdfdsfsdfs"},
-        ]
+        ],
+        newDialogText: ""
     }
 }
 
@@ -50,6 +56,23 @@ export const addPost = () => {
 
 export const updateNewPostText = (newText: string) => {
     state.profilePage.newPostText = newText
+    onChange(state);
+}
+
+export const addDialog = () => {
+
+    let newDialog: MyDialogItemType = {
+        id: 1,
+        message: state.dialogsPage.newDialogText
+
+    }
+    state.dialogsPage.dialogsData.push(newDialog)
+    state.dialogsPage.newDialogText = ''
+    onChange(state);
+}
+
+export const updateNewDialogText = (newDialog: string) => {
+    state.dialogsPage.newDialogText = newDialog
     onChange(state);
 }
 

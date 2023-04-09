@@ -1,5 +1,4 @@
-import {state, subscribe} from './redux/state';
-
+import {addDialog, state, subscribe, updateNewDialogText, addPost, updateNewPostText} from './redux/state';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
@@ -9,7 +8,6 @@ import App, {
     ProfilePostDataPropsType
 } from './App';
 import {BrowserRouter} from 'react-router-dom';
-import {addPost, updateNewPostText} from './redux/state';
 
 export type AppStateTypeMinus = {
     profilePage: {
@@ -18,7 +16,8 @@ export type AppStateTypeMinus = {
     },
     dialogsPage: {
         messagesData: Array<DialogsItemsDataPropsType>,
-        dialogsData: Array<DialogsMessagesDataPropsType>
+        dialogsData: Array<DialogsMessagesDataPropsType>,
+        newDialogText: string
     }
 
 
@@ -27,9 +26,11 @@ export type AppStateTypeMinus = {
 const rerenderEntireTree = (state: AppStateTypeMinus) => {
     ReactDOM.render(
         <BrowserRouter>
-            <App addPost={addPost}
-                 appState={state}
+            <App appState={state}
+                 addPost={addPost}
                  updateNewPostText={updateNewPostText}
+                 addDialog={addDialog}
+                 updateNewDialogText={updateNewDialogText}
             />
         </BrowserRouter>,
         document.getElementById('root')

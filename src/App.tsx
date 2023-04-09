@@ -25,6 +25,8 @@ export type ProfilePostDataPropsType = {
 export type AppStateType = {
     addPost: () => void,
     updateNewPostText: (s: string) => void,
+    addDialog: () => void,
+    updateNewDialogText: (s: string) => void,
     appState: {
         profilePage: {
             myPostData: Array<ProfilePostDataPropsType>,
@@ -32,7 +34,8 @@ export type AppStateType = {
         },
         dialogsPage: {
             messagesData: Array<DialogsItemsDataPropsType>,
-            dialogsData: Array<DialogsMessagesDataPropsType>
+            dialogsData: Array<DialogsMessagesDataPropsType>,
+            newDialogText: string
         }
     }
 
@@ -47,9 +50,13 @@ const App = (props: AppStateType) => {
             <div className="app-wrapper-content">
                 <Route path='/profile' render={() => <Profile addPost={props.addPost}
                                                               updateNewPostText={props.updateNewPostText}
-                                                              profilePage={props.appState.profilePage}/>}
-                />
-                <Route path='/dialogs' render={() => <Dialogs state={props.appState.dialogsPage}/>}/>
+                                                              profilePage={props.appState.profilePage}
+                />}/>
+                <Route path='/dialogs' render={() => <Dialogs addDialog={props.addDialog}
+                                                              updateNewDialogText={props.updateNewDialogText}
+                                                              dialogsPage={props.appState.dialogsPage}
+
+                />}/>
                 <Route path='/news' render={() => <News/>}/>
                 <Route path='/music' render={() => <Music/>}/>
                 <Route path='/settings' render={() => <Settings/>}/>
