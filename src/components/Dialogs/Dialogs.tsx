@@ -6,7 +6,7 @@ import {
     DialogsItemsDataPropsType,
     DialogsMessagesDataPropsType
 } from '../../App';
-import {ActionTypes} from '../../redux/state';
+import {ActionTypes, addDialogActionCreator, UpdateNewDialogActionCreator} from '../../redux/state';
 
 type DialogsPropsType = {
     dialogsPage: {
@@ -24,12 +24,12 @@ const Dialogs = (props: DialogsPropsType) => {
     let newDialog = React.createRef<HTMLTextAreaElement>()
 
     let addDialog = () => {
-        props.dispatch({type: 'ADD-DIALOG'})
+        props.dispatch(addDialogActionCreator())
     }
 
     let onDialogChange = () => {
         if (newDialog.current) {
-            props.dispatch({type: 'UPDATE.NEW.DIALOG.TEXT', newDialog: newDialog.current?.value})
+            props.dispatch(UpdateNewDialogActionCreator(newDialog.current?.value))
         }
 
     }

@@ -3,7 +3,7 @@ import s from "./MyPosts.module.css";
 import MyPost from "./Post/MyPost";
 
 import {ProfilePostDataPropsType} from '../../../App';
-import {ActionTypes} from '../../../redux/state';
+import {ActionTypes, addPostActionCreator, UpdateNewTextActionCreator} from '../../../redux/state';
 
 
 export type MyPostsPropsType = {
@@ -14,18 +14,20 @@ export type MyPostsPropsType = {
     dispatch: (action: ActionTypes) => void
 }
 
+
+
 const MyPosts = (props: MyPostsPropsType) => {
 
     let newPostElement = React.createRef<HTMLTextAreaElement>();
 
     let addPost = () => {
         // debugger
-        props.dispatch({type:'ADD-POST'})
+        props.dispatch(addPostActionCreator())
     }
 
     let onPostChange = () => {
         if (newPostElement.current) {
-            props.dispatch({type: 'UPDATE.NEW.POST.TEXT', newText: newPostElement.current?.value})
+            props.dispatch(UpdateNewTextActionCreator(newPostElement.current?.value))
         }
 
     }

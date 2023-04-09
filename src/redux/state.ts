@@ -37,6 +37,19 @@ type updateNewDialogTextActionType = {
 
 export type ActionTypes = AddPostActionType | UpdateNewTextActionType | AddDialogActionType | updateNewDialogTextActionType
 
+export const addPostActionCreator = (): AddPostActionType => ({type: 'ADD-POST'})
+export const UpdateNewTextActionCreator = (newText: string): UpdateNewTextActionType => ({
+        type:'UPDATE.NEW.POST.TEXT',
+        newText: newText
+})
+
+export const addDialogActionCreator = (): AddDialogActionType => ({type:'ADD-DIALOG'})
+export const UpdateNewDialogActionCreator = (newDialog: string): updateNewDialogTextActionType => ({
+    type:'UPDATE.NEW.DIALOG.TEXT',
+    newDialog: newDialog
+})
+
+
 
 export let store: StoreType = {
     _state: {
@@ -119,9 +132,11 @@ export let store: StoreType = {
             this._state.profilePage.myPostData.push(newPost);
             this._state.profilePage.newPostText = ''
             this._callSubscriber(this._state);
+
         } else if (action.type === 'UPDATE.NEW.POST.TEXT') {
             this._state.profilePage.newPostText = action.newText
             this._callSubscriber(this._state);
+
         } else if (action.type === 'ADD-DIALOG') {
             let newDialog: MyDialogItemType = {
                 id: 1,
@@ -131,6 +146,7 @@ export let store: StoreType = {
             this._state.dialogsPage.dialogsData.push(newDialog)
             this._state.dialogsPage.newDialogText = ''
             this._callSubscriber(this._state);
+
         } else if (action.type === 'UPDATE.NEW.DIALOG.TEXT') {
             this._state.dialogsPage.newDialogText = action.newDialog
             this._callSubscriber(this._state);
