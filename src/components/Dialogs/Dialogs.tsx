@@ -6,7 +6,7 @@ import {
     DialogsItemsDataPropsType,
     DialogsMessagesDataPropsType
 } from '../../App';
-import {ActionTypes} from '../../redux/state';
+import {ActionTypes} from '../../redux/store';
 import {addDialogActionCreator, UpdateNewDialogActionCreator} from '../../redux/dialogs-reducer';
 
 type DialogsPropsType = {

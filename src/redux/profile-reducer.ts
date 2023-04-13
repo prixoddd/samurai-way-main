@@ -1,6 +1,14 @@
-import {MyPostDataItemType} from './state';
+import {MyPostDataItemType} from './store';
 
-export const profileReducer = (state: any, action: any) => {
+let initialState = {
+    myPostData: [
+        {message: "Hello how are you", countLikes: "1"},
+        {message: "Nice weather outside", countLikes: "15"}
+    ],
+    newPostText: ''
+}
+
+export const profileReducer = (state: any = initialState, action: any) => {
 
     switch (action.type) {
         case'ADD-POST':

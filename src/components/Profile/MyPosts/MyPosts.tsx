@@ -3,7 +3,7 @@ import s from "./MyPosts.module.css";
 import MyPost from "./Post/MyPost";
 
 import {ProfilePostDataPropsType} from '../../../App';
-import {ActionTypes} from '../../../redux/state';
+import {ActionTypes} from '../../../redux/store';
 import {addPostActionCreator, UpdateNewTextActionCreator} from '../../../redux/profile-reducer';
 
 

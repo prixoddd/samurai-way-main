@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import {store} from './redux/state';
+import store from './redux/redux-store';
 import './index.css';
 import App, {
     DialogsItemsDataPropsType,
@@ -35,4 +35,7 @@ const rerenderEntireTree = () => {
 
 rerenderEntireTree()
 
-store.subscribe(rerenderEntireTree)
+store.subscribe(()=>{
+    let state = store.getState()
+    rerenderEntireTree()
+})
