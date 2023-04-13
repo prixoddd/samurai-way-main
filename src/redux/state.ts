@@ -1,10 +1,12 @@
 import {AppStateTypeMinus} from '../index';
+import profileReducer, {AddPostActionType, UpdateNewTextActionType} from './profile-reducer';
+import dialogsReducer, {AddDialogActionType, updateNewDialogTextActionType} from './dialogs-reducer';
 
-type MyPostDataItemType = {
+export type MyPostDataItemType = {
     message: string
     countLikes: string
 }
-type MyDialogItemType = {
+export type MyDialogItemType = {
     id: number
     message: string
 }
@@ -20,34 +22,18 @@ export type StoreType = {
     dispatch: (action: ActionTypes) => void
 }
 
-type AddPostActionType = {
-    type: 'ADD-POST'
-}
-type UpdateNewTextActionType = {
-    type: 'UPDATE.NEW.POST.TEXT'
-    newText: string
-}
-type AddDialogActionType = {
-    type: 'ADD-DIALOG'
-}
-type updateNewDialogTextActionType = {
-    type: 'UPDATE.NEW.DIALOG.TEXT'
-    newDialog: string
-}
 
-export type ActionTypes = AddPostActionType | UpdateNewTextActionType | AddDialogActionType | updateNewDialogTextActionType
 
-export const addPostActionCreator = (): AddPostActionType => ({type: 'ADD-POST'})
-export const UpdateNewTextActionCreator = (newText: string): UpdateNewTextActionType => ({
-        type:'UPDATE.NEW.POST.TEXT',
-        newText: newText
-})
 
-export const addDialogActionCreator = (): AddDialogActionType => ({type:'ADD-DIALOG'})
-export const UpdateNewDialogActionCreator = (newDialog: string): updateNewDialogTextActionType => ({
-    type:'UPDATE.NEW.DIALOG.TEXT',
-    newDialog: newDialog
-})
+
+export type ActionTypes =
+    AddPostActionType
+    | UpdateNewTextActionType
+    | AddDialogActionType
+    | updateNewDialogTextActionType
+
+
+
 
 
 
@@ -123,34 +109,39 @@ export let store: StoreType = {
 
 
     dispatch(action) {
-        if (action.type === 'ADD-POST') {
-            let newPost: MyPostDataItemType = {
-                message: this._state.profilePage.newPostText,
-                countLikes: "0"
 
-            }
-            this._state.profilePage.myPostData.push(newPost);
-            this._state.profilePage.newPostText = ''
-            this._callSubscriber(this._state);
+        this._state.profilePage = profileReducer(this._state.profilePage, action)
+        this._state.dialogsPage = dialogsReducer(this._state.dialogsPage, action)
+        this._callSubscriber(this._state);
 
-        } else if (action.type === 'UPDATE.NEW.POST.TEXT') {
-            this._state.profilePage.newPostText = action.newText
-            this._callSubscriber(this._state);
-
-        } else if (action.type === 'ADD-DIALOG') {
-            let newDialog: MyDialogItemType = {
-                id: 1,
-                message: this._state.dialogsPage.newDialogText
-
-            }
-            this._state.dialogsPage.dialogsData.push(newDialog)
-            this._state.dialogsPage.newDialogText = ''
-            this._callSubscriber(this._state);
-
-        } else if (action.type === 'UPDATE.NEW.DIALOG.TEXT') {
-            this._state.dialogsPage.newDialogText = action.newDialog
-            this._callSubscriber(this._state);
-        }
+        // if (action.type === 'ADD-POST') {
+        //     let newPost: MyPostDataItemType = {
+        //         message: this._state.profilePage.newPostText,
+        //         countLikes: "0"
+        //
+        //     }
+        //     this._state.profilePage.myPostData.push(newPost);
+        //     this._state.profilePage.newPostText = ''
+        //     this._callSubscriber(this._state);
+        //
+        // } else if (action.type === 'UPDATE.NEW.POST.TEXT') {
+        //     this._state.profilePage.newPostText = action.newText
+        //     this._callSubscriber(this._state);
+        //
+        // } else if (action.type === 'ADD-DIALOG') {
+        //     let newDialog: MyDialogItemType = {
+        //         id: 1,
+        //         message: this._state.dialogsPage.newDialogText
+        //
+        //     }
+        //     this._state.dialogsPage.dialogsData.push(newDialog)
+        //     this._state.dialogsPage.newDialogText = ''
+        //     this._callSubscriber(this._state);
+        //
+        // } else if (action.type === 'UPDATE.NEW.DIALOG.TEXT') {
+        //     this._state.dialogsPage.newDialogText = action.newDialog
+        //     this._callSubscriber(this._state);
+        // }
     }
 
 
