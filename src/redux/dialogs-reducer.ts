@@ -1,4 +1,4 @@
-import {MyDialogItemType} from './store';
+import {ActionTypes, MyDialogItemType} from './store';
 let initialState = {
     messagesData: [
         {id: 1, name: "Nikita"},
@@ -18,7 +18,7 @@ let initialState = {
     newDialogText: ""
 }
 
-const dialogsReducer = (state: any = initialState, action: any) => {
+const dialogsReducer = (state = initialState, action: ActionTypes) => {
 
     switch (action.type) {
         case 'ADD-DIALOG':

@@ -8,7 +8,8 @@ import Dialogs from "./components/Dialogs/Dialogs";
 import News from "./components/News/News";
 import Music from "./components/Music/Music";
 import Settings from "./components/Settings/Settings";
-import {StoreType} from './redux/store';
+// import {StoreType} from './redux/store';
+// import { ReduxStoreType} from './redux/redux-store';
 
 export type DialogsItemsDataPropsType = {
     name: string
@@ -41,9 +42,9 @@ export type AppStateType = {
     }
 
 }
-type PropsType = {
-    store: StoreType
-}
+// type PropsType = {
+//     store: StoreType
+// }
 
 
 const App: React.FC<any> = (props) => {

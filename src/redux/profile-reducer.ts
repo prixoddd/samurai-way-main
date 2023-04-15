@@ -1,4 +1,4 @@
-import {MyPostDataItemType} from './store';
+import {ActionTypes, MyPostDataItemType} from './store';
 
 let initialState = {
     myPostData: [
@@ -8,7 +8,7 @@ let initialState = {
     newPostText: ''
 }
 
-export const profileReducer = (state: any = initialState, action: any) => {
+export const profileReducer = (state = initialState, action: ActionTypes) => {
 
     switch (action.type) {
         case'ADD-POST':
