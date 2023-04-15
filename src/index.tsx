@@ -8,6 +8,7 @@ import App, {
     ProfilePostDataPropsType
 } from './App';
 import {BrowserRouter} from 'react-router-dom';
+import ReduxStore from './redux/redux-store';
 
 export type AppStateTypeMinus = {
     profilePage: {

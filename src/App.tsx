@@ -8,6 +8,7 @@ import Dialogs from "./components/Dialogs/Dialogs";
 import News from "./components/News/News";
 import Music from "./components/Music/Music";
 import Settings from "./components/Settings/Settings";
+import {ReduxStoreType} from './redux/redux-store';
 // import {StoreType} from './redux/store';
 // import { ReduxStoreType} from './redux/redux-store';
 
@@ -47,9 +48,9 @@ export type AppStateType = {
 // }
 
 
-const App: React.FC<any> = (props) => {
+const App: React.FC<{store:ReduxStoreType}> = (props) => {
 
-    const state = props.store.getState()
+
 
     return (
         <div className="app-wrapper">
@@ -60,13 +61,13 @@ const App: React.FC<any> = (props) => {
                     // addPost={props.store.addPost.bind(props.store)}
                     dispatch={props.store.dispatch.bind(props.store)}
                     // updateNewPostText={props.store.updateNewPostText.bind(props.store)}
-                    profilePage={state.profilePage}
+                    profilePage={props.store.profilePage}
                 />}/>
                 <Route path='/dialogs' render={() => <Dialogs
                     // addDialog={props.store.addDialog.bind(props.store)}
                     // updateNewDialogText={props.store.updateNewDialogText.bind(props.store)}
                     dispatch={props.store.dispatch.bind(props.store)}
-                    dialogsPage={state.dialogsPage}
+                    dialogsPage={props.store.dialogsPage}
 
                 />}/>
                 <Route path='/news' render={() => <News/>}/>
