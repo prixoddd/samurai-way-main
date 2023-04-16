@@ -9,6 +9,8 @@ import App, {
 } from './App';
 import {BrowserRouter} from 'react-router-dom';
 import ReduxStore from './redux/redux-store';
+import StoreContext from './StoreContext';
+import {Provider} from 'react-redux';
 //ink
 
 export type AppStateTypeMinus = {
@@ -28,8 +30,11 @@ export type AppStateTypeMinus = {
 const rerenderEntireTree = () => {
     ReactDOM.render(
         <BrowserRouter>
-            <App store={store}
-            />
+            <Provider store={store}>
+            {/*<App store={store}/>*/}
+            <App />
+            </Provider>
+
         </BrowserRouter>,
         document.getElementById('root')
     );

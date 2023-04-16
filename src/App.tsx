@@ -49,7 +49,7 @@ export type AppStateType = {
 // }
 
 
-const App = (props: {store: any}) => {
+const App = (props: any) => {
 
     // const state = props.store.getState()
 
@@ -59,14 +59,14 @@ const App = (props: {store: any}) => {
             <NavBar/>
             <div className="app-wrapper-content">
                 <Route path='/profile' render={() => <Profile
-                    store={props.store}
+                    // store={props.store}
                     // addPost={props.store.addPost.bind(props.store)}
                     // dispatch={props.store.dispatch.bind(props.store)}
                     // updateNewPostText={props.store.updateNewPostText.bind(props.store)}
                     // profilePage={state.profilePage}
                 />}/>
                 <Route path='/dialogs' render={() => <DialogsContainer
-                    store={props.store}
+                    // store={props.store}
                     // addDialog={props.store.addDialog.bind(props.store)}
                     // updateNewDialogText={props.store.updateNewDialogText.bind(props.store)}
                     // dispatch={props.store.dispatch.bind(props.store)}

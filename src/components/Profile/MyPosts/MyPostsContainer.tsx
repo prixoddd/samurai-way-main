@@ -6,6 +6,7 @@ import {ProfilePostDataPropsType} from '../../../App';
 import {ActionTypes} from '../../../redux/store';
 import {addPostActionCreator, UpdateNewTextActionCreator} from '../../../redux/profile-reducer';
 import MyPosts from './MyPosts';
+import StoreContext from '../../../StoreContext';
 
 
 export type MyPostsPropsType = {
@@ -17,32 +18,39 @@ export type MyPostsPropsType = {
 }
 
 
-
 const MyPostsContainer = (props: any) => {
 
-    let state = props.store.getState().profilePage
+    // let state = props.store.getState().profilePage
 
     let newPostElement = React.createRef<HTMLTextAreaElement>();
 
-    let addPost = () => {
-        // props.addPost()
-        // debugger
-        props.store.dispatch(addPostActionCreator())
-    }
-
-    let onPostChange = (text: string) => {
-
-            props.store.dispatch(UpdateNewTextActionCreator(text))
-            // props.updateNewPostText(newPostElement.current?.value)
 
 
-    }
+    return (
+        <StoreContext.Consumer>
+            {
+            (store) => {
+                let state = store.getState().profilePage
 
-    return <MyPosts posts={state.myPostData}
-                    addPost={addPost}
-                    updateNewPostText={onPostChange}
-                    newPostText={state.newPostText}
-    />
+                let addPost = () => {
+                    // props.addPost()
+                    // debugger
+                    store.dispatch(addPostActionCreator())
+                }
+
+                let onPostChange = (text: string) => {
+                    store.dispatch(UpdateNewTextActionCreator(text))
+                    // props.updateNewPostText(newPostElement.current?.value)
+                }
+
+                return <MyPosts posts={state.myPostData}
+                                addPost={addPost}
+                                updateNewPostText={onPostChange}
+                                newPostText={state.newPostText}/>
+            }
+        }
+        </StoreContext.Consumer>
+    )
 };
 
 export default MyPostsContainer;

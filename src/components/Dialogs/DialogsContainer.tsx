@@ -9,6 +9,7 @@ import {
 import {ActionTypes} from '../../redux/store';
 import {addDialogActionCreator, UpdateNewDialogActionCreator} from '../../redux/dialogs-reducer';
 import Dialogs from './Dialogs';
+import StoreContext from '../../StoreContext';
 
 type DialogsPropsType = {
     dialogsPage: {
@@ -23,18 +24,30 @@ type DialogsPropsType = {
 
 const DialogsContainer = (props: any) => {
 
-    let state = props.store.getState().dialogsPage
 
-    let addDialog = () => {
-        props.store.dispatch(addDialogActionCreator())
-    }
 
-    let onDialogChange = (body: string) => {
-        props.store.dispatch(UpdateNewDialogActionCreator(body))
 
-    }
 
-    return <Dialogs updateMeaasgeBody={onDialogChange} sendMessage={addDialog} dialogsPage={state}/>
+    return <StoreContext.Consumer >
+        {
+        (store) => {
+
+            let state = store.getState().dialogsPage
+            // let state = store._state.dialogsPage
+
+            let addDialog = () => {
+                store.dispatch(addDialogActionCreator())
+            }
+
+            let onDialogChange = (body: string) => {
+                store.dispatch(UpdateNewDialogActionCreator(body))
+            }
+                return <Dialogs updateMeaasgeBody={onDialogChange} sendMessage={addDialog} dialogsPage={state}/>
+
+            }
+        }
+    </StoreContext.Consumer>
+
 };
 
 export default DialogsContainer;
