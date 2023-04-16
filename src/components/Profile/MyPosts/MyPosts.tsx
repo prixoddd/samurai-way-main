@@ -10,9 +10,9 @@ import {addPostActionCreator, UpdateNewTextActionCreator} from '../../../redux/p
 export type MyPostsPropsType = {
     posts: Array<ProfilePostDataPropsType>
     newPostText: string
-    // addPost: () => void
-    // updateNewPostText: (s: string) => void
-    dispatch: (action: ActionTypes) => void
+    addPost: () => void
+    updateNewPostText: (s: string) => void
+    // dispatch: (action: ActionTypes) => void
 }
 
 
@@ -22,13 +22,15 @@ const MyPosts = (props: MyPostsPropsType) => {
     let newPostElement = React.createRef<HTMLTextAreaElement>();
 
     let addPost = () => {
+        props.addPost()
         // debugger
-        props.dispatch(addPostActionCreator())
+        // props.dispatch(addPostActionCreator())
     }
 
     let onPostChange = () => {
         if (newPostElement.current) {
-            props.dispatch(UpdateNewTextActionCreator(newPostElement.current?.value))
+            // props.dispatch(UpdateNewTextActionCreator(newPostElement.current?.value))
+            props.updateNewPostText(newPostElement.current?.value)
         }
 
     }
@@ -45,8 +47,10 @@ const MyPosts = (props: MyPostsPropsType) => {
                 </div>
             </div>
             <div className={s.posts}>
-                {props.posts.map(el => <MyPost message={el.message} countLikes={el.countLikes}/>
-                )}
+                {props.posts.map((el,index) => <MyPost message={el.message} countLikes={el.countLikes} key={index}/>)}
+                {/*{props.posts}*/}
+                {/*{props.posts.map(el => el.message)}*/}
+
             </div>
         </div>
 
