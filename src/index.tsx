@@ -9,6 +9,7 @@ import App, {
 } from './App';
 import {BrowserRouter} from 'react-router-dom';
 import ReduxStore from './redux/redux-store';
+//ink
 
 export type AppStateTypeMinus = {
     profilePage: {
