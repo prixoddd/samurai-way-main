@@ -8,7 +8,7 @@ import App, {
     ProfilePostDataPropsType
 } from './App';
 import {BrowserRouter} from 'react-router-dom';
-import {Provider} from './StoreContext';
+import {Provider} from 'react-redux';
 export type AppStateTypeMinus = {
     profilePage: {
         myPostData: Array<ProfilePostDataPropsType>,

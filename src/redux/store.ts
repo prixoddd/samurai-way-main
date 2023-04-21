@@ -2,14 +2,7 @@ import {AppStateTypeMinus} from '../index';
 import profileReducer, {AddPostActionType, UpdateNewTextActionType} from './profile-reducer';
 import dialogsReducer, {AddDialogActionType, updateNewDialogTextActionType} from './dialogs-reducer';
 
-export type MyPostDataItemType = {
-    message: string
-    countLikes: string
-}
-export type MyDialogItemType = {
-    id: number
-    message: string
-}
+
 export type StoreType = {
     _state: AppStateTypeMinus
     getState: () => AppStateTypeMinus

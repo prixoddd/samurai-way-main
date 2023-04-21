@@ -2,22 +2,11 @@ import React from 'react';
 import s from './Dialogs.module.css'
 import DialogItem from './DialogItem/DialogItem';
 import Message from './Message/Message';
-import {
-    DialogsItemsDataPropsType,
-    DialogsMessagesDataPropsType
-} from '../../App';
+import {DialogsPropsType} from './DialogsContainer';
 
-type DialogsPropsType = {
-    dialogsPage: {
-        messagesData: Array<DialogsItemsDataPropsType>,
-        dialogsData: Array<DialogsMessagesDataPropsType>,
-        newDialogText: string
-    },
-    sendMessage: () => void,
-    updateMeaasgeBody: (s: string) => void
-}
 
 const Dialogs = (props: DialogsPropsType) => {
+// const Dialogs = (props: any) => {
 
     let newDialog = React.createRef<HTMLTextAreaElement>()
 
@@ -27,7 +16,7 @@ const Dialogs = (props: DialogsPropsType) => {
 
     let onDialogChange = () => {
         if (newDialog.current) {
-            props.updateMeaasgeBody(newDialog.current?.value)
+            props.updateMessageBody(newDialog.current?.value)
         }
 
     }

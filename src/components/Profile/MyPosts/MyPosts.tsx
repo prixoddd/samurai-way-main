@@ -1,17 +1,7 @@
 import React from 'react';
 import s from "./MyPosts.module.css";
 import MyPost from "./Post/MyPost";
-
-import {ProfilePostDataPropsType} from '../../../App';
-
-export type MyPostsPropsType = {
-    posts: Array<ProfilePostDataPropsType>
-    newPostText: string
-    addPost: () => void
-    updateNewPostText: (s: string) => void
-}
-
-
+import { MyPostsPropsType } from './MyPostsContainer';
 
 const MyPosts = (props: MyPostsPropsType) => {
 
@@ -25,7 +15,6 @@ const MyPosts = (props: MyPostsPropsType) => {
         if (newPostElement.current) {
             props.updateNewPostText(newPostElement.current?.value)
         }
-
     }
 
     return (
