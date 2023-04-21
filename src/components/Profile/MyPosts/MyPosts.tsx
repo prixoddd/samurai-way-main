@@ -3,16 +3,12 @@ import s from "./MyPosts.module.css";
 import MyPost from "./Post/MyPost";
 
 import {ProfilePostDataPropsType} from '../../../App';
-import {ActionTypes} from '../../../redux/store';
-import {addPostActionCreator, UpdateNewTextActionCreator} from '../../../redux/profile-reducer';
-
 
 export type MyPostsPropsType = {
     posts: Array<ProfilePostDataPropsType>
     newPostText: string
     addPost: () => void
     updateNewPostText: (s: string) => void
-    // dispatch: (action: ActionTypes) => void
 }
 
 
@@ -23,13 +19,10 @@ const MyPosts = (props: MyPostsPropsType) => {
 
     let addPost = () => {
         props.addPost()
-        // debugger
-        // props.dispatch(addPostActionCreator())
     }
 
     let onPostChange = () => {
         if (newPostElement.current) {
-            // props.dispatch(UpdateNewTextActionCreator(newPostElement.current?.value))
             props.updateNewPostText(newPostElement.current?.value)
         }
 
@@ -48,9 +41,6 @@ const MyPosts = (props: MyPostsPropsType) => {
             </div>
             <div className={s.posts}>
                 {props.posts.map((el,index) => <MyPost message={el.message} countLikes={el.countLikes} key={index}/>)}
-                {/*{props.posts}*/}
-                {/*{props.posts.map(el => el.message)}*/}
-
             </div>
         </div>
 

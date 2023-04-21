@@ -1,13 +1,5 @@
-import React, {ReactNode} from 'react';
-import {StoreType} from './redux/store';
-import {AppStateTypeMinus} from './index';
+import React from 'react';
 import {ReduxStoreType} from './redux/redux-store';
-
-// interface IContextProps {
-//     state: AppStateTypeMinus;
-//     dispatch: ({type}: { type: string }) => void
-//     getState: () => AppStateTypeMinus
-// }
 
 const StoreContext = React.createContext({} as ReduxStoreType)
 
@@ -16,7 +8,7 @@ export type ProviderType = {
     children: React.ReactNode
 }
 
-export const Provider = (props: any) => {
+export const Provider = (props: ProviderType) => {
     return <StoreContext.Provider value={props.store} >
         {props.children}
     </StoreContext.Provider>

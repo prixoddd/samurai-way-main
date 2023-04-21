@@ -4,14 +4,10 @@ import './App.css';
 import Header from "./components/Header/Header";
 import NavBar from "./components/NavBar/NavBar";
 import Profile from "./components/Profile/Profile";
-import Dialogs from "./components/Dialogs/Dialogs";
 import News from "./components/News/News";
 import Music from "./components/Music/Music";
 import Settings from "./components/Settings/Settings";
 import DialogsContainer from './components/Dialogs/DialogsContainer';
-import {ReduxStoreType} from './redux/redux-store';
-// import {StoreType} from './redux/store';
-// import { ReduxStoreType} from './redux/redux-store';
 
 export type DialogsItemsDataPropsType = {
     name: string
@@ -26,53 +22,15 @@ export type ProfilePostDataPropsType = {
     countLikes: string
 }
 
-export type AppStateType = {
-    addPost: () => void,
-    updateNewPostText: (s: string) => void,
-    addDialog: () => void,
-    updateNewDialogText: (s: string) => void,
-    appState: {
-        profilePage: {
-            myPostData: Array<ProfilePostDataPropsType>,
-            newPostText: string
-        },
-        dialogsPage: {
-            messagesData: Array<DialogsItemsDataPropsType>,
-            dialogsData: Array<DialogsMessagesDataPropsType>,
-            newDialogText: string
-        }
-    }
-
-}
-// type PropsType = {
-//     store: StoreType
-// }
-
-
-const App = (props: any) => {
-
-    // const state = props.store.getState()
+const App = () => {
 
     return (
         <div className="app-wrapper">
             <Header/>
             <NavBar/>
             <div className="app-wrapper-content">
-                <Route path='/profile' render={() => <Profile
-                    // store={props.store}
-                    // addPost={props.store.addPost.bind(props.store)}
-                    // dispatch={props.store.dispatch.bind(props.store)}
-                    // updateNewPostText={props.store.updateNewPostText.bind(props.store)}
-                    // profilePage={state.profilePage}
-                />}/>
-                <Route path='/dialogs' render={() => <DialogsContainer
-                    // store={props.store}
-                    // addDialog={props.store.addDialog.bind(props.store)}
-                    // updateNewDialogText={props.store.updateNewDialogText.bind(props.store)}
-                    // dispatch={props.store.dispatch.bind(props.store)}
-                    // dialogsPage={state.dialogsPage}
-
-                />}/>
+                <Route path='/profile' render={() => <Profile/>}/>
+                <Route path='/dialogs' render={() => <DialogsContainer/>}/>
                 <Route path='/news' render={() => <News/>}/>
                 <Route path='/music' render={() => <Music/>}/>
                 <Route path='/settings' render={() => <Settings/>}/>

@@ -8,11 +8,7 @@ import App, {
     ProfilePostDataPropsType
 } from './App';
 import {BrowserRouter} from 'react-router-dom';
-import ReduxStore from './redux/redux-store';
-import StoreContext from './StoreContext';
-import {Provider} from 'react-redux';
-//ink
-
+import {Provider} from './StoreContext';
 export type AppStateTypeMinus = {
     profilePage: {
         myPostData: Array<ProfilePostDataPropsType>,
@@ -24,14 +20,12 @@ export type AppStateTypeMinus = {
         newDialogText: string
     }
 
-
 }
 
 const rerenderEntireTree = () => {
     ReactDOM.render(
         <BrowserRouter>
             <Provider store={store}>
-            {/*<App store={store}/>*/}
             <App />
             </Provider>
 
@@ -43,6 +37,6 @@ const rerenderEntireTree = () => {
 rerenderEntireTree()
 
 store.subscribe(()=>{
-    let state = store.getState()
+    // let state = store.getState()
     rerenderEntireTree()
 })
