@@ -37,18 +37,24 @@ const  dialogsReducer = (state:InitialStateType = initialState, action: ActionTy
     let stateCopy = {...state}
 
     switch (action.type) {
-        case 'ADD-DIALOG':
+        case 'ADD-DIALOG':{
             let newDialog: MyDialogItemType = {
                 id: 1,
                 message: state.newDialogText
 
             }
-            state.dialogsData.push(newDialog)
-            state.newDialogText = ''
-            return state
-        case 'UPDATE.NEW.DIALOG.TEXT':
-            state.newDialogText = action.newDialog
-            return state
+            let stateCopy = {...state}
+            stateCopy.dialogsData = [...state.dialogsData]
+            stateCopy.dialogsData.push(newDialog)
+            stateCopy.newDialogText = ''
+            return stateCopy
+        }
+        case 'UPDATE.NEW.DIALOG.TEXT':{
+            let stateCopy = {...state}
+            stateCopy.dialogsData = [...state.dialogsData]
+            stateCopy.newDialogText = action.newDialog
+            return stateCopy
+        }
         default:
             return state
     }
