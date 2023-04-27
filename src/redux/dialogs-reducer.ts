@@ -34,6 +34,8 @@ export type MyDialogItemType = {
 
 const  dialogsReducer = (state:InitialStateType = initialState, action: ActionTypes) => {
 
+    let stateCopy = {...state}
+
     switch (action.type) {
         case 'ADD-DIALOG':
             let newDialog: MyDialogItemType = {

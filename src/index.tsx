@@ -9,6 +9,7 @@ import App, {
 } from './App';
 import {BrowserRouter} from 'react-router-dom';
 import {Provider} from 'react-redux';
+
 export type AppStateTypeMinus = {
     profilePage: {
         myPostData: Array<ProfilePostDataPropsType>,
@@ -22,21 +23,13 @@ export type AppStateTypeMinus = {
 
 }
 
-const rerenderEntireTree = () => {
-    ReactDOM.render(
-        <BrowserRouter>
-            <Provider store={store}>
-            <App />
-            </Provider>
 
-        </BrowserRouter>,
-        document.getElementById('root')
-    );
-}
+ReactDOM.render(
+    <BrowserRouter>
+        <Provider store={store}>
+            <App/>
+        </Provider>
 
-rerenderEntireTree()
-
-store.subscribe(()=>{
-    // let state = store.getState()
-    rerenderEntireTree()
-})
+    </BrowserRouter>,
+    document.getElementById('root')
+);
