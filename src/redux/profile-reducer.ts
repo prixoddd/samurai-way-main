@@ -23,51 +23,25 @@ export const profileReducer = (state: InitialStateType = initialState, action: A
                 message: state.newPostText,
                 countLikes: "0"
             }
-            let stateCopy = {...state}
-            stateCopy.myPostData = [...state.myPostData]
-            stateCopy.myPostData.push(newPost)
-            stateCopy.newPostText = ''
-            return stateCopy;
+            return {
+                ...state,
+                newPostText: '',
+                myPostData: [...state.myPostData, newPost]
+            }
         }
         case'UPDATE.NEW.POST.TEXT': {
-            let stateCopy = {...state}
-            stateCopy.myPostData = [...state.myPostData]
-            stateCopy.newPostText = action.newText
-            return stateCopy
+            return {
+                ...state,
+                newPostText: action.newText
+            }
         }
         default:
             return state
     }
-    // if (action.type === 'ADD-POST') {
-    //     let newPost: MyPostDataItemType = {
-    //         message: state.newPostText,
-    //         countLikes: "0"
-    //
-    //     }
-    //     state.myPostData.push(newPost);
-    //     state.newPostText = ''
-    //
-    //
-    // } else if (action.type === 'UPDATE.NEW.POST.TEXT') {
-    //     state.newPostText = action.newText
-    //
-    //
-    // }
-    //
-    // return state
 }
 
-// type AddPostActionType = {
-//     type: 'ADD-POST'
-// }
 
 export type AddPostActionType = ReturnType<typeof addPostActionCreator>
-
-// type UpdateNewTextActionType = {
-//     type: 'UPDATE.NEW.POST.TEXT'
-//     newText: string
-// }
-
 export type UpdateNewTextActionType = ReturnType<typeof UpdateNewTextActionCreator>
 
 export const addPostActionCreator = () => ({type: 'ADD-POST'} as const)

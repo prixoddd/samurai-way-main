@@ -21,8 +21,6 @@ let initialState = {
 
 export type InitialStateType = typeof initialState
 
-
-
 export type MyMessageDataItemType = {
     id: number
     name: string
@@ -32,67 +30,38 @@ export type MyDialogItemType = {
     message: string
 }
 
-const  dialogsReducer = (state:InitialStateType = initialState, action: ActionTypes) => {
-
-    let stateCopy = {...state}
+const dialogsReducer = (state: InitialStateType = initialState, action: ActionTypes) => {
 
     switch (action.type) {
-        case 'ADD-DIALOG':{
+        case 'ADD-DIALOG':
             let newDialog: MyDialogItemType = {
                 id: 1,
                 message: state.newDialogText
-
             }
-            let stateCopy = {...state}
-            stateCopy.dialogsData = [...state.dialogsData]
-            stateCopy.dialogsData.push(newDialog)
-            stateCopy.newDialogText = ''
-            return stateCopy
-        }
-        case 'UPDATE.NEW.DIALOG.TEXT':{
-            let stateCopy = {...state}
-            stateCopy.dialogsData = [...state.dialogsData]
-            stateCopy.newDialogText = action.newDialog
-            return stateCopy
-        }
+            return {
+                ...state,
+                newDialogText: '',
+                dialogsData: [...state.dialogsData, newDialog]
+            }
+        case 'UPDATE.NEW.DIALOG.TEXT':
+            return {
+                ...state,
+                dialogsData: [...state.dialogsData],
+                newDialogText: action.newDialog
+            }
         default:
             return state
     }
 
-    // if (action.type === 'ADD-DIALOG') {
-    //     let newDialog: MyDialogItemType = {
-    //         id: 1,
-    //         message: state.newDialogText
-    //
-    //     }
-    //     state.dialogsData.push(newDialog)
-    //     state.newDialogText = ''
-    //
-    // } else if (action.type === 'UPDATE.NEW.DIALOG.TEXT') {
-    //     state.newDialogText = action.newDialog
-    //
-    // }
-    //
-    // return state
 }
 
-// type AddDialogActionType = {
-//     type: 'ADD-DIALOG'
-// }
-
 export type AddDialogActionType = ReturnType<typeof addDialogActionCreator>
-
-// type updateNewDialogTextActionType = {
-//     type: 'UPDATE.NEW.DIALOG.TEXT'
-//     newDialog: string
-// }
-
 export type updateNewDialogTextActionType = ReturnType<typeof UpdateNewDialogActionCreator>
 
 export const addDialogActionCreator = () => ({type: 'ADD-DIALOG'} as const)
 export const UpdateNewDialogActionCreator = (newDialog: string) => ({
     type: 'UPDATE.NEW.DIALOG.TEXT',
     newDialog: newDialog
-}as const)
+} as const)
 
 export default dialogsReducer
