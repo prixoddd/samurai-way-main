@@ -1,11 +1,14 @@
-
-
 const FOLLOW = 'FOLLOW'
 const UNFOLLOW = 'UNFOLLOW'
 const SET_USERS = 'SET-USERS'
+const SET_CURRENT_PAGE = 'SET_CURRENT_PAGE'
+const SET_TOTAL_USERS_COUNT = 'SET_TOTAL_USERS_COUNT'
 
 let initialState = {
     users: [] as Array<MyPostDataItemType>,
+    pageSize: 5,
+    totalUsersCount: 0,
+    currentPage: 1
 }
 
 export type MyPostDataItemType = {
@@ -22,6 +25,8 @@ export type InitialStateType = typeof initialState
 type BossActionType = FollowActionType
     | UnfollowActionType
     | SetUsersActionType
+    | setCurrentPageActionType
+    | setTotalUsersCountActionType
 
 export const usersReducer = (state: InitialStateType = initialState, action: BossActionType) => {
 
@@ -37,7 +42,11 @@ export const usersReducer = (state: InitialStateType = initialState, action: Bos
                 users: state.users.map(el => el.id === action.userId ? {...el, followed: false} : el)
             }
         case 'SET-USERS':
-            return {...state, users: [...state.users, ...action.users]}
+            return {...state, users: [...action.users]}
+        case SET_CURRENT_PAGE:
+            return {...state, currentPage: action.currentPage}
+        case SET_TOTAL_USERS_COUNT:
+            return {...state, totalUsersCount: action.totalCount}
         default:
             return state
     }
@@ -47,12 +56,16 @@ export const usersReducer = (state: InitialStateType = initialState, action: Bos
 export type FollowActionType = ReturnType<typeof followAC>
 export type UnfollowActionType = ReturnType<typeof unfollowAC>
 export type SetUsersActionType = ReturnType<typeof setUsersAC>
+export type setCurrentPageActionType = ReturnType<typeof setCurrentPageAC>
+export type setTotalUsersCountActionType = ReturnType<typeof setTotalUsersCountAC>
 
 // export type UpdateNewTextActionType = ReturnType<typeof UpdateNewTextActionCreator>
 
 export const followAC = (userId: number) => ({type: FOLLOW, userId} as const)
 export const unfollowAC = (userId: number) => ({type: UNFOLLOW, userId} as const)
 export const setUsersAC = (users: Array<MyPostDataItemType>) => ({type: SET_USERS, users} as const)
+export const setCurrentPageAC = (currentPage: number) => ({type: SET_CURRENT_PAGE, currentPage} as const)
+export const setTotalUsersCountAC = (totalCount: number) => ({type: SET_TOTAL_USERS_COUNT, totalCount} as const)
 
 // export const UpdateNewTextActionCreator = (newText: string) => ({
 //     type: 'UPDATE.NEW.POST.TEXT',
