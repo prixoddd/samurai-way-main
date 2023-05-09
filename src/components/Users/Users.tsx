@@ -2,6 +2,7 @@ import React from 'react';
 import styles from './users.module.css';
 import userPhoto from '../../assets/img/smallBorat.jpg';
 import {mapStateToPropsType} from './UsersContainer';
+import {NavLink} from 'react-router-dom';
 
 type UsersPropsType = mapStateToPropsType & {
     onPageChanged: (p: number)=> void
@@ -31,8 +32,11 @@ const Users = (props: UsersPropsType) => {
             {props.users.map((wl: any) => <div key={wl.id}>
                 <span>
                     <div>
-                        <img src={wl.photos.small != null ? wl.photos.small : userPhoto} className={styles.userPhoto}
-                             alt='blabla'/>
+                        <NavLink to={'/profile/' + wl.id}>
+                            <img src={wl.photos.small != null ? wl.photos.small : userPhoto} className={styles.userPhoto}
+                                 alt='blabla'/>
+                        </NavLink>
+
                     </div>
                     <div>
                         {wl.followed

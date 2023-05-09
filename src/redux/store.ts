@@ -1,5 +1,5 @@
 import {AppStateTypeMinus} from '../index';
-import profileReducer, {AddPostActionType, UpdateNewTextActionType} from './profile-reducer';
+import profileReducer, {AddPostActionType, ProfileReducerBossType, UpdateNewTextActionType} from './profile-reducer';
 import dialogsReducer, {AddDialogActionType, updateNewDialogTextActionType} from './dialogs-reducer';
 
 
