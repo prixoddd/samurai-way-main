@@ -106,4 +106,13 @@ let mapDispatchToProps = (dispatch:any): mapDispatchToPropsType => {
     }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps) (UsersContainer);
+const mmm = {
+    follow: followAC,
+    unfollow: unfollowAC,
+    setUsers: setUsersAC,
+    setCurrentPage: setCurrentPageAC,
+    setTotalUsersCount: setTotalUsersCountAC,
+    toggleIsFetching: SetIsFetchingAC
+}
+
+export default connect(mapStateToProps, mmm) (UsersContainer);
