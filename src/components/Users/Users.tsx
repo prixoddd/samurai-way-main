@@ -3,7 +3,7 @@ import styles from './users.module.css';
 import userPhoto from '../../assets/img/smallBorat.jpg';
 import {mapStateToPropsType} from './UsersContainer';
 import {NavLink} from 'react-router-dom';
-import axios from 'axios';
+import {usersApi} from '../../api/api';
 
 type UsersPropsType = mapStateToPropsType & {
     onPageChanged: (p: number) => void
@@ -45,28 +45,15 @@ const Users = (props: UsersPropsType) => {
                     <div>
                         {wl.followed
                             ? <button onClick={() => {
-                                axios.delete(`https://social-network.samuraijs.com/api/1.0/follow/` + wl.id, {
-                                    withCredentials: true,
-                                    headers: {
-                                        'API-KEY': '7ef044b0-5189-4763-8a75-7ec374e4c5ba'
-                                    }
-                                })
-                                    .then(response => {
-                                        if (response.data.resultCode == 0) {
+                                usersApi.unfollow(wl.id).then(data => {
+                                        if (data.resultCode == 0) {
                                             props.unfollow(wl.id)
                                         }
                                     })
-
                             }}>Unfollow</button>
                             : <button onClick={() => {
-                                axios.post(`https://social-network.samuraijs.com/api/1.0/follow/` + wl.id, {}, {
-                                    withCredentials: true,
-                                    headers: {
-                                        'API-KEY': '7ef044b0-5189-4763-8a75-7ec374e4c5ba'
-                                    }
-                                })
-                                    .then(response => {
-                                        if (response.data.resultCode == 0) {
+                                    usersApi.follow(wl.id).then(data => {
+                                        if (data.resultCode == 0) {
                                             props.follow(wl.id)
                                         }
                                     })
