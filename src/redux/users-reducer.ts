@@ -13,6 +13,22 @@ let initialState = {
     isFetching: false
 }
 
+// let initialState = {
+//     users: [] as Array<MyPostDataItemType>,
+//     pageSize: null,
+//     totalUsersCount: null,
+//     currentPage: null,
+//     isFetching: undefined
+// }
+//
+// type InitialStateType = {
+//     users: Array<MyPostDataItemType>,
+//     pageSize: null | number,
+//     totalUsersCount: null | number,
+//     currentPage: null | number,
+//     isFetching: boolean | undefined
+// }
+
 export type MyPostDataItemType = {
     id: number
     photoUrl: string
