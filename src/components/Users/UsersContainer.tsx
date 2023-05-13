@@ -1,7 +1,7 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import {
-    followAC, InitialStateType, SetIsFetchingAC,
+    followAC, SetIsFetchingAC,
     MyPostDataItemType,
     setCurrentPageAC,
     setTotalUsersCountAC,
@@ -33,7 +33,7 @@ type mapDispatchToPropsType = {
 export type MyPostsPropsType = mapStateToPropsType & mapDispatchToPropsType
 
 
-class UsersContainer extends React.Component<MyPostsPropsType, InitialStateType> {
+class UsersContainer extends React.Component<MyPostsPropsType> {
 
     componentDidMount() {
         this.props.toggleIsFetching(true)
@@ -83,28 +83,28 @@ let mapStateToProps = (state: AppStateType): mapStateToPropsType => {
     }
 }
 
-let mapDispatchToProps = (dispatch:any): mapDispatchToPropsType => {
-    return {
-        follow: (userId: number) => {
-            dispatch(followAC(userId))
-        },
-        unfollow: (userId: number) => {
-            dispatch(unfollowAC(userId))
-        },
-        setUsers: (users: Array<MyPostDataItemType>) => {
-            dispatch(setUsersAC(users))
-        },
-        setCurrentPage: (pageNumber: number) => {
-            dispatch(setCurrentPageAC(pageNumber))
-        },
-        setTotalUsersCount: (totalCount: number) => {
-            dispatch(setTotalUsersCountAC(totalCount))
-        },
-        toggleIsFetching: (isFetching: boolean) => {
-            dispatch(SetIsFetchingAC(isFetching))
-        }
-    }
-}
+// let mapDispatchToProps = (dispatch:any): mapDispatchToPropsType => {
+//     return {
+//         follow: (userId: number) => {
+//             dispatch(followAC(userId))
+//         },
+//         unfollow: (userId: number) => {
+//             dispatch(unfollowAC(userId))
+//         },
+//         setUsers: (users: Array<MyPostDataItemType>) => {
+//             dispatch(setUsersAC(users))
+//         },
+//         setCurrentPage: (pageNumber: number) => {
+//             dispatch(setCurrentPageAC(pageNumber))
+//         },
+//         setTotalUsersCount: (totalCount: number) => {
+//             dispatch(setTotalUsersCountAC(totalCount))
+//         },
+//         toggleIsFetching: (isFetching: boolean) => {
+//             dispatch(SetIsFetchingAC(isFetching))
+//         }
+//     }
+// }
 
 const mmm = {
     follow: followAC,

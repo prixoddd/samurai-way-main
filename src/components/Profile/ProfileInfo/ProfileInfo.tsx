@@ -10,7 +10,6 @@ const ProfileInfo = (props: ProfilePropsType) => {
 return (
 
     <div>
-        {props.profile.fullName}
         <div>
             <img
                 src="https://st.depositphotos.com/1179847/1835/i/600/depositphotos_18351001-stock-photo-island-in-the-maldives.jpg"
@@ -19,6 +18,7 @@ return (
         <div className={s.descriptionBlock}>
 
             <img src={props.profile.photos.small} alt=""/>
+            {props.profile.fullName}
         </div>
 
     </div>
