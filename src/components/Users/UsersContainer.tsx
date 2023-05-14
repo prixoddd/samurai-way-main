@@ -6,7 +6,7 @@ import {
     setCurrentPageAC,
     setTotalUsersCountAC,
     setUsersAC,
-    unfollowAC
+    unfollowAC, ToggleFollowingInProgressAC
 } from '../../redux/users-reducer';
 import {AppStateType} from '../../redux/redux-store';
 import Users from './Users';
@@ -19,6 +19,7 @@ export type mapStateToPropsType = {
     totalUsersCount: number
     currentPage: number
     isFetching: boolean
+    followingInProgress: Array<number>
 }
 
 type mapDispatchToPropsType = {
@@ -28,6 +29,7 @@ type mapDispatchToPropsType = {
     setCurrentPage: (pageNumber: number) => void
     setTotalUsersCount: (totalCount: number) => void
     toggleIsFetching: (isFetching: boolean) => void
+    toggleFollowingInProgress: (followingInProgress: boolean, userId: number) => void
 }
 
 export type MyPostsPropsType = mapStateToPropsType & mapDispatchToPropsType
@@ -68,6 +70,8 @@ class UsersContainer extends React.Component<MyPostsPropsType> {
                    follow={this.props.follow}
                    unfollow={this.props.unfollow}
                    isFetching={this.props.isFetching}
+                   toggleFollowingInProgress={this.props.toggleFollowingInProgress}
+                   followingInProgress={this.props.followingInProgress}
             />
         </>
     }
@@ -79,7 +83,10 @@ let mapStateToProps = (state: AppStateType): mapStateToPropsType => {
         pageSize: state.usersPage.pageSize,
         totalUsersCount: state.usersPage.totalUsersCount,
         currentPage: state.usersPage.currentPage,
-        isFetching: state.usersPage.isFetching
+        isFetching: state.usersPage.isFetching,
+        followingInProgress: state.usersPage.followingInProgress
+
+
 
     }
 }
@@ -113,7 +120,8 @@ const mmm = {
     setUsers: setUsersAC,
     setCurrentPage: setCurrentPageAC,
     setTotalUsersCount: setTotalUsersCountAC,
-    toggleIsFetching: SetIsFetchingAC
+    toggleIsFetching: SetIsFetchingAC,
+    toggleFollowingInProgress: ToggleFollowingInProgressAC
 }
 
 export default connect(mapStateToProps, mmm) (UsersContainer);

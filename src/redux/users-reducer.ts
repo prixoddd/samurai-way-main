@@ -4,13 +4,15 @@ const SET_USERS = 'SET-USERS'
 const SET_CURRENT_PAGE = 'SET_CURRENT_PAGE'
 const SET_TOTAL_USERS_COUNT = 'SET_TOTAL_USERS_COUNT'
 const TOGGLE_IS_FETCHING = 'TOGGLE_IS_FETCHING'
+const TOGGLE_IS_FOLlOWING_PROGRESS = 'TOGGLE_IS_FOLlOWING_PROGRESS'
 
 let initialState = {
     users: [] as Array<MyPostDataItemType>,
     pageSize: 5,
     totalUsersCount: 0,
     currentPage: 1,
-    isFetching: false
+    isFetching: false,
+    followingInProgress: [] as Array<number>
 }
 
 // let initialState = {
@@ -47,6 +49,7 @@ type BossActionType = FollowActionType
     | setCurrentPageActionType
     | setTotalUsersCountActionType
     | isFetchingActionType
+    | ToggleFollowingInProgressActionType
 
 export const usersReducer = (state: InitialStateType = initialState, action: BossActionType) => {
 
@@ -69,6 +72,12 @@ export const usersReducer = (state: InitialStateType = initialState, action: Bos
             return {...state, totalUsersCount: action.totalCount}
         case TOGGLE_IS_FETCHING:
             return {...state, isFetching: action.isFetching}
+        case TOGGLE_IS_FOLlOWING_PROGRESS:
+            return {...state,
+                followingInProgress: action.followingInProgress
+                    ? [...state.followingInProgress, action.userId]
+                    : state.followingInProgress.filter(id => id != action.userId)
+            }
         default:
             return state
     }
@@ -81,6 +90,7 @@ export type SetUsersActionType = ReturnType<typeof setUsersAC>
 export type setCurrentPageActionType = ReturnType<typeof setCurrentPageAC>
 export type setTotalUsersCountActionType = ReturnType<typeof setTotalUsersCountAC>
 export type isFetchingActionType = ReturnType<typeof SetIsFetchingAC>
+export type ToggleFollowingInProgressActionType = ReturnType<typeof ToggleFollowingInProgressAC>
 
 // export type UpdateNewTextActionType = ReturnType<typeof UpdateNewTextActionCreator>
 
@@ -90,6 +100,11 @@ export const setUsersAC = (users: Array<MyPostDataItemType>) => ({type: SET_USER
 export const setCurrentPageAC = (currentPage: number) => ({type: SET_CURRENT_PAGE, currentPage} as const)
 export const setTotalUsersCountAC = (totalCount: number) => ({type: SET_TOTAL_USERS_COUNT, totalCount} as const)
 export const SetIsFetchingAC = (isFetching: boolean) => ({type: TOGGLE_IS_FETCHING, isFetching} as const)
+export const ToggleFollowingInProgressAC = (followingInProgress: boolean, userId: number) => ({
+    type: TOGGLE_IS_FOLlOWING_PROGRESS,
+    followingInProgress,
+    userId
+} as const)
 
 // export const UpdateNewTextActionCreator = (newText: string) => ({
 //     type: 'UPDATE.NEW.POST.TEXT',
