@@ -30,7 +30,6 @@ const Users = (props: UsersPropsType) => {
                                  }}>{p}</span>
                 })}
             </div>
-            {/*<button onClick={() => {}}>Get users</button>*/}
             {props.users.map((wl: any) => <div key={wl.id}>
                 <span>
                     <div>

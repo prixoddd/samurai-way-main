@@ -2,8 +2,8 @@ import React from 'react';
 import {connect} from 'react-redux';
 import {
     MyPostDataItemType,
-    setCurrentPageAC,
-    toggleFollowingInProgressAC, getUsersThunkCreator, follow, unfollow
+    setCurrentPage,
+    toggleFollowingInProgress, getUsersThunkCreator, follow, unfollow
 } from '../../redux/users-reducer';
 import {AppStateType} from '../../redux/redux-store';
 import Users from './Users';
@@ -74,9 +74,9 @@ let mapStateToProps = (state: AppStateType): mapStateToPropsType => {
 const mmm = {
     follow,
     unfollow,
-    setCurrentPage: setCurrentPageAC,
-    toggleFollowingInProgress: toggleFollowingInProgressAC,
-    getUsersThunkCreator: getUsersThunkCreator
+    setCurrentPage,
+    toggleFollowingInProgress,
+    getUsersThunkCreator
 }
 
 export default connect(mapStateToProps, mmm) (UsersContainer);
