@@ -3,14 +3,12 @@ import styles from './users.module.css';
 import userPhoto from '../../assets/img/smallBorat.jpg';
 import {mapStateToPropsType} from './UsersContainer';
 import {NavLink} from 'react-router-dom';
-import {usersApi} from '../../api/api';
 
 type UsersPropsType = mapStateToPropsType & {
     onPageChanged: (p: number) => void
     follow: (userId: number) => void
     unfollow: (userId: number) => void
     isFetching?: boolean
-    toggleFollowingInProgress: (followingInProgress: boolean, userId: number) => void
 }
 
 const Users = (props: UsersPropsType) => {
@@ -46,23 +44,9 @@ const Users = (props: UsersPropsType) => {
                     <div>
                         {wl.followed
                             ? <button disabled={props.followingInProgress.some(id => id === wl.id)} onClick={() => {
-                                props.toggleFollowingInProgress(true, wl.id)
-                                usersApi.unfollow(wl.id).then(data => {
-                                        if (data.resultCode == 0) {
-                                            props.unfollow(wl.id)
-                                        }
-                                    props.toggleFollowingInProgress(false, wl.id)
-                                    })
-                            }}>Unfollow</button>
+                                props.unfollow(wl.id)}}>Unfollow</button>
                             : <button disabled={props.followingInProgress.some(id => id === wl.id)} onClick={() => {
-                                props.toggleFollowingInProgress(true, wl.id)
-                                    usersApi.follow(wl.id).then(data => {
-                                        if (data.resultCode == 0) {
-                                            props.follow(wl.id)
-                                        }
-                                        props.toggleFollowingInProgress(false, wl.id)
-                                    })
-                            }}>Follow</button>}
+                                props.follow(wl.id)}}>Follow</button>}
 
                     </div>
                 </span>
