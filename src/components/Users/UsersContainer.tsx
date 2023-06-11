@@ -8,6 +8,7 @@ import {
 import {AppStateType} from '../../redux/redux-store';
 import Users from './Users';
 import Preloader from '../common/preloader/Preloader';
+import {WithAuthRedirect} from '../../hoc/withAuthRedirect';
 
 
 export type mapStateToPropsType = {
@@ -79,4 +80,6 @@ const mmm = {
     getUsersThunkCreator
 }
 
-export default connect(mapStateToProps, mmm) (UsersContainer);
+// let AuthRedirectComponent = WithAuthRedirect(UsersContainer)
+
+export default WithAuthRedirect(connect(mapStateToProps, mmm) (UsersContainer));

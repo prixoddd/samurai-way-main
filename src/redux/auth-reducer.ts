@@ -7,7 +7,7 @@ let initialState = {
     id: null,
     email: null,
     login: null,
-    isAuth: true
+    isAuth: false
 }
 
 type InitialStateType = {
