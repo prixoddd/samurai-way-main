@@ -1,13 +1,11 @@
 import {Dispatch} from 'redux';
-import {profileAPI, usersApi} from '../api/api';
+import {profileAPI, usersApi} from 'api/api';
 
 const ADD_POST = 'ADD-POST'
-const UPDATE_NEW_POST_TEXT = 'UPDATE_NEW_POST_TEXT'
 const SET_USER_PROFILE = 'SET_USER_PROFILE'
 const SET_STATUS = 'SET_STATUS'
 
 export type ProfileReducerBossType = AddPostActionType
-    | UpdateNewTextActionType
     | SetUserActionType | SetStatusActionType
 
 
@@ -16,7 +14,6 @@ let initialState = {
         {message: "Hello how are you", countLikes: "1"},
         {message: "Nice weather outside", countLikes: "15"}
     ] as Array<MyPostDataItemType>,
-    newPostText: '',
     profile: null,
     status: ''
 }
@@ -33,19 +30,12 @@ export const profileReducer = (state: InitialStateType = initialState, action: P
     switch (action.type) {
         case ADD_POST: {
             let newPost: MyPostDataItemType = {
-                message: state.newPostText,
+                message: action.newPostText,
                 countLikes: "0"
             }
             return {
                 ...state,
-                newPostText: '',
                 myPostData: [...state.myPostData, newPost]
-            }
-        }
-        case UPDATE_NEW_POST_TEXT: {
-            return {
-                ...state,
-                newPostText: action.newText
             }
         }
 
@@ -69,11 +59,10 @@ export const profileReducer = (state: InitialStateType = initialState, action: P
 
 
 export type AddPostActionType = ReturnType<typeof addPostActionCreator>
-export type UpdateNewTextActionType = ReturnType<typeof UpdateNewTextActionCreator>
 export type SetUserActionType = ReturnType<typeof setUserProfileAC>
 export type SetStatusActionType = ReturnType<typeof setStatus>
 
-export const addPostActionCreator = () => ({type: ADD_POST} as const)
+export const addPostActionCreator = (newPostText: string) => ({type: ADD_POST, newPostText} as const)
 export const setUserProfileAC = (profile: any) => ({type: SET_USER_PROFILE, profile} as const)
 export const setStatus = (status: string) => ({type: SET_STATUS, status} as const)
 
@@ -101,10 +90,5 @@ export const updateStatus = (status: string) => (dispatch: Dispatch) => {
 
         })
 }
-
-export const UpdateNewTextActionCreator = (newText: string) => ({
-    type: UPDATE_NEW_POST_TEXT,
-    newText: newText
-} as const)
 
 export default profileReducer

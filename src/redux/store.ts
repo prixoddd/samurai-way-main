@@ -1,6 +1,6 @@
-import {AppStateTypeMinus} from '../index';
-import {AddPostActionType, UpdateNewTextActionType} from './profile-reducer';
-import {AddDialogActionType, updateNewDialogTextActionType} from './dialogs-reducer';
+import {AppStateTypeMinus} from 'index';
+import {AddPostActionType} from './profile-reducer';
+import {AddDialogActionType} from './dialogs-reducer';
 
 
 export type StoreType = {
@@ -21,9 +21,8 @@ export type StoreType = {
 
 export type ActionTypes =
     AddPostActionType
-    | UpdateNewTextActionType
     | AddDialogActionType
-    | updateNewDialogTextActionType
+
 
 
 

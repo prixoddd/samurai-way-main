@@ -2,38 +2,31 @@ import React from 'react';
 import {
     addPostActionCreator,
     MyPostDataItemType,
-    UpdateNewTextActionCreator
-} from '../../../redux/profile-reducer';
+} from 'redux/profile-reducer';
 import MyPosts from './MyPosts';
 import {connect} from 'react-redux';
-import {AppStateType} from '../../../redux/redux-store';
+import {AppStateType} from 'redux/redux-store';
 
 type mapStatePropsType = {
     posts: Array<MyPostDataItemType>
-    newPostText: string
 }
 
 type mapDispatchToPropsType = {
-    updateNewPostText: (text: any) =>  void
-    addPost: () => void
+    addPost: (newPostText: string) => void
 }
 
 export type MyPostsPropsType = mapStatePropsType & mapDispatchToPropsType
 
 const mapStateToProps = (state: AppStateType): mapStatePropsType => {
     return {
-        posts: state.profilePage.myPostData,
-        newPostText: state.profilePage.newPostText
+        posts: state.profilePage.myPostData
     }
 }
 
 const mapDispatchToProps = (dispatch: any): mapDispatchToPropsType => {
     return {
-        updateNewPostText: (text: any) => {
-            dispatch(UpdateNewTextActionCreator(text))
-        },
-        addPost: () => {
-            dispatch(addPostActionCreator())
+        addPost: (newPostText: string) => {
+            dispatch(addPostActionCreator(newPostText))
         }
     }
 }

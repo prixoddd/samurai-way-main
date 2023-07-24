@@ -15,8 +15,7 @@ let initialState = {
         {id: 1, message: "How is your day"},
         {id: 1, message: "trololololo"},
         {id: 1, message: "sdfsdfdsfsdfs"},
-    ] as Array<MyDialogItemType>,
-    newDialogText: ""
+    ] as Array<MyDialogItemType>
 }
 
 export type InitialStateType = typeof initialState
@@ -36,18 +35,11 @@ const dialogsReducer = (state: InitialStateType = initialState, action: ActionTy
         case 'ADD-DIALOG':
             let newDialog: MyDialogItemType = {
                 id: 1,
-                message: state.newDialogText
+                message: action.newMessageBody
             }
             return {
                 ...state,
-                newDialogText: '',
                 dialogsData: [...state.dialogsData, newDialog]
-            }
-        case 'UPDATE.NEW.DIALOG.TEXT':
-            return {
-                ...state,
-                dialogsData: [...state.dialogsData],
-                newDialogText: action.newDialog
             }
         default:
             return state
@@ -56,12 +48,8 @@ const dialogsReducer = (state: InitialStateType = initialState, action: ActionTy
 }
 
 export type AddDialogActionType = ReturnType<typeof addDialogActionCreator>
-export type updateNewDialogTextActionType = ReturnType<typeof UpdateNewDialogActionCreator>
 
-export const addDialogActionCreator = () => ({type: 'ADD-DIALOG'} as const)
-export const UpdateNewDialogActionCreator = (newDialog: string) => ({
-    type: 'UPDATE.NEW.DIALOG.TEXT',
-    newDialog: newDialog
-} as const)
+export const addDialogActionCreator = (newMessageBody:string) => ({type: 'ADD-DIALOG', newMessageBody} as const)
+
 
 export default dialogsReducer
