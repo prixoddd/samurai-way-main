@@ -1,8 +1,8 @@
-import React from 'react';
-import styles from './users.module.css';
-import userPhoto from '../../assets/img/smallBorat.jpg';
-import {mapStateToPropsType} from './UsersContainer';
-import {NavLink} from 'react-router-dom';
+import React from "react"
+import styles from "./users.module.css"
+import userPhoto from "../../assets/img/smallBorat.jpg"
+import { mapStateToPropsType } from "./UsersContainer"
+import { NavLink } from "react-router-dom"
 
 type UsersPropsType = mapStateToPropsType & {
     onPageChanged: (p: number) => void
@@ -19,47 +19,68 @@ const Users = (props: UsersPropsType) => {
         pages.push(i)
     }
 
-
     return (
         <div>
             <div>
-                {pages.map(p => {
-                    return <span className={props.currentPage === p ? styles.selectedPage : ''}
-                                 onClick={() => {
-                                     props.onPageChanged(p)
-                                 }}>{p}</span>
+                {pages.map((p) => {
+                    return (
+                        <span
+                            className={props.currentPage === p ? styles.selectedPage : ""}
+                            onClick={() => {
+                                props.onPageChanged(p)
+                            }}
+                        >
+                            {p}
+                        </span>
+                    )
                 })}
             </div>
-            {props.users.map((wl: any) => <div key={wl.id}>
-                <span>
-                    <div>
-                        <NavLink to={'/profile/' + wl.id}>
-                            <img src={wl.photos.small != null ? wl.photos.small : userPhoto}
-                                 className={styles.userPhoto}
-                                 alt='blabla'/>
-                        </NavLink>
-
-                    </div>
-                    <div>
-                        {wl.followed
-                            ? <button disabled={props.followingInProgress.some(id => id === wl.id)} onClick={() => {
-                                props.unfollow(wl.id)}}>Unfollow</button>
-                            : <button disabled={props.followingInProgress.some(id => id === wl.id)} onClick={() => {
-                                props.follow(wl.id)}}>Follow</button>}
-
-                    </div>
-                </span>
-                <span>
-                    <div>{wl.name}</div>
-                    <div>{wl.status}</div>
-                </span>
-                <span>
-                    <div>{'wl.location.country'}</div>
-                    <div>{'wl.location.city'}</div>
-                </span>
-            </div>)}
+            {props.users.map((wl: any) => (
+                <div key={wl.id}>
+                    <span>
+                        <div>
+                            <NavLink to={"/profile/" + wl.id}>
+                                <img
+                                    src={wl.photos.small != null ? wl.photos.small : userPhoto}
+                                    className={styles.userPhoto}
+                                    alt="blabla"
+                                />
+                            </NavLink>
+                        </div>
+                        <div>
+                            {wl.followed ? (
+                                <button
+                                    disabled={props.followingInProgress.some((id) => id === wl.id)}
+                                    onClick={() => {
+                                        props.unfollow(wl.id)
+                                    }}
+                                >
+                                    Unfollow
+                                </button>
+                            ) : (
+                                <button
+                                    disabled={props.followingInProgress.some((id) => id === wl.id)}
+                                    onClick={() => {
+                                        props.follow(wl.id)
+                                    }}
+                                >
+                                    Follow
+                                </button>
+                            )}
+                        </div>
+                    </span>
+                    <span>
+                        <div>{wl.name}</div>
+                        <div>{wl.status}</div>
+                    </span>
+                    <span>
+                        <div>{"wl.location.country"}</div>
+                        <div>{"wl.location.city"}</div>
+                    </span>
+                </div>
+            ))}
         </div>
-    );
-};
+    )
+}
 
-export default Users;
+export default Users

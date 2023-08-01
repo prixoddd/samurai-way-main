@@ -1,7 +1,6 @@
-import {AppStateTypeMinus} from 'index';
-import {AddPostActionType} from './profile-reducer';
-import {AddDialogActionType} from './dialogs-reducer';
-
+import { AppStateTypeMinus } from "index"
+import { AddPostActionType } from "./profile-reducer"
+import { AddDialogActionType } from "./dialogs-reducer"
 
 export type StoreType = {
     _state: AppStateTypeMinus
@@ -15,19 +14,7 @@ export type StoreType = {
     dispatch: (action: ActionTypes) => void
 }
 
-
-
-
-
-export type ActionTypes =
-    AddPostActionType
-    | AddDialogActionType
-
-
-
-
-
-
+export type ActionTypes = AddPostActionType | AddDialogActionType
 
 // export let store: StoreType = {
 //     _state: {

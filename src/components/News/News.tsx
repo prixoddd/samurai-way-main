@@ -1,12 +1,7 @@
-import React from 'react';
-import s from './News.module.css'
+import React from "react"
 
 const News = () => {
-    return (
-        <div>
-            News
-        </div>
-    );
-};
+    return <div>News</div>
+}
 
-export default News;
+export default News

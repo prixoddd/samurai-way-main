@@ -1,48 +1,57 @@
-import React from 'react';
-import s from './Dialogs.module.css'
-import DialogItem from './DialogItem/DialogItem';
-import Message from './Message/Message';
-import {DialogsPropsType} from './DialogsContainer';
-import {Field, reduxForm, SubmitHandler} from 'redux-form';
-
+import React from "react"
+import s from "./Dialogs.module.css"
+import DialogItem from "./DialogItem/DialogItem"
+import Message from "./Message/Message"
+import { DialogsPropsType } from "./DialogsContainer"
+import { Field, reduxForm, SubmitHandler } from "redux-form"
+import { maxLengthCreator, requiredField } from "utils/validators/validators"
+import TextArea from "antd/es/input/TextArea"
 
 const Dialogs = (props: DialogsPropsType) => {
-// const Dialogs = (props: any) => {
+    // const Dialogs = (props: any) => {
 
-
-    let addNewMessage: SubmitHandler<{}, {}, string> = (values:any) => {
-        console.log(values.newMessageBody);
+    let addNewMessage: SubmitHandler<{}, {}, string> = (values: any) => {
+        console.log(values.newMessageBody)
         props.sendMessage(values.newMessageBody)
         // Do something with the form values (message body) here
-    };
+    }
 
     return (
         <div className={s.dialogs}>
             <div className={s.dialogsItems}>
-                {props.dialogsPage.messagesData.map((el,index) => <DialogItem name={el.name} id={el.id} key={index}/>)}
+                {props.dialogsPage.messagesData.map((el, index) => (
+                    <DialogItem name={el.name} id={el.id} key={index} />
+                ))}
             </div>
             <div className={s.messages}>
-                {props.dialogsPage.dialogsData.map((el,index) => <Message message={el.message} key={index}/>)}
-                <AddMessageFormRedux onSubmit={addNewMessage}/>
+                {props.dialogsPage.dialogsData.map((el, index) => (
+                    <Message message={el.message} key={index} />
+                ))}
+                <AddMessageFormRedux onSubmit={addNewMessage} />
             </div>
         </div>
-    );
-};
-
-const AddMessageForm = (props:any) => {
-return (
-    <form onSubmit={props.handleSubmit}>
-        <div>
-            <Field component='textarea' name='newMessageBody' placeholder='Enter your message'/>
-        </div>
-        <div>
-            <button>Send</button>
-        </div>
-    </form>
-
-)
+    )
 }
 
-const AddMessageFormRedux = reduxForm({form: 'dialogAddMessageForm'})(AddMessageForm)
+const maxLength100 = maxLengthCreator(100)
+const AddMessageForm = (props: any) => {
+    return (
+        <form onSubmit={props.handleSubmit}>
+            <div>
+                <Field
+                    component={TextArea}
+                    validate={[requiredField, maxLength100]}
+                    name="newMessageBody"
+                    placeholder="Enter your message"
+                />
+            </div>
+            <div>
+                <button>Send</button>
+            </div>
+        </form>
+    )
+}
 
-export default Dialogs;
+const AddMessageFormRedux = reduxForm({ form: "dialogAddMessageForm" })(AddMessageForm)
+
+export default Dialogs
