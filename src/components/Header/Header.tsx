@@ -10,7 +10,16 @@ const Header: FC<HeaderPropsType> = (props): ReactElement => {
                 src="https://www.freepnglogos.com/uploads/lion-logo-png/lion-griffe-tattoo-tattoo-maori-tribal-top-mlk-14.png"
                 alt="image"
             />
-            <div className={s.loginBlock}>{props.isAuth ? props.login : <NavLink to={"/login"}>Login</NavLink>}</div>
+            <div className={s.loginBlock}>
+                {props.isAuth ? (
+                    <div>
+                        {props.login}
+                        <button onClick={props.logout}>Log out</button>
+                    </div>
+                ) : (
+                    <NavLink to={"/login"}>Login</NavLink>
+                )}
+            </div>
         </header>
     )
 }

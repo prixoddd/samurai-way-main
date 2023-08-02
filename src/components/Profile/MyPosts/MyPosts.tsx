@@ -4,7 +4,7 @@ import MyPost from "./Post/MyPost"
 import { MyPostsPropsType } from "./MyPostsContainer"
 import { Field, reduxForm, SubmitHandler } from "redux-form"
 import { maxLengthCreator, requiredField } from "utils/validators/validators"
-import TextArea from "antd/es/input/TextArea"
+import { Textarea } from "components/common/FormsControls/FormsControls"
 
 const MyPosts = (props: MyPostsPropsType) => {
     let addPost: SubmitHandler<{}, {}, string> = (values: any) => {
@@ -32,7 +32,7 @@ function AddNewPostForm(props: any) {
             <div>
                 <Field
                     name="NewPostText"
-                    component={TextArea}
+                    component={Textarea}
                     validate={[requiredField, maxLength10]}
                     placeholder="your post message"
                 />

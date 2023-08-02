@@ -5,7 +5,7 @@ import Message from "./Message/Message"
 import { DialogsPropsType } from "./DialogsContainer"
 import { Field, reduxForm, SubmitHandler } from "redux-form"
 import { maxLengthCreator, requiredField } from "utils/validators/validators"
-import TextArea from "antd/es/input/TextArea"
+import { Textarea } from "components/common/FormsControls/FormsControls"
 
 const Dialogs = (props: DialogsPropsType) => {
     // const Dialogs = (props: any) => {
@@ -39,7 +39,7 @@ const AddMessageForm = (props: any) => {
         <form onSubmit={props.handleSubmit}>
             <div>
                 <Field
-                    component={TextArea}
+                    component={Textarea}
                     validate={[requiredField, maxLength100]}
                     name="newMessageBody"
                     placeholder="Enter your message"
