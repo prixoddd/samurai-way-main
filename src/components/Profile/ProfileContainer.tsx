@@ -49,9 +49,11 @@ type MyPostsPropsType = mapStatePropsType & mapDispatchPropsType & RouteComponen
 class ProfileContainer extends React.Component<MyPostsPropsType, InitialStateType> {
     componentDidMount() {
         let userId = this.props.match.params.userId
-        if (!userId) {
-            userId = this.props.authorisedUserId ? this.props.authorisedUserId.toString() : "1"
+        if (!userId && this.props.authorisedUserId) {
+            userId = this.props.authorisedUserId.toString()
         }
+        if (!userId) this.props.history.push("/login")
+
         this.props.getUserProfile(userId)
 
         // setTimeout(() => {

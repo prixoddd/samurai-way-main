@@ -39,7 +39,7 @@ export const setUserDataAC = (id: number | null, email: string | null, login: st
     ({ type: SET_USER_DATA, payload: { id, email, login, isAuth } }) as const
 
 export const getAuthUserData = () => (dispatch: Dispatch) => {
-    authAPI.me().then((response) => {
+    return authAPI.me().then((response) => {
         if (response.data.resultCode === 0) {
             let { id, email, login } = response.data.data
             dispatch(setUserDataAC(id, email, login, true))
