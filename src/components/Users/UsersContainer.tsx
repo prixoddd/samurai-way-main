@@ -12,6 +12,14 @@ import { AppStateType } from "redux/redux-store"
 import Users from "./Users"
 import Preloader from "../common/preloader/Preloader"
 import { compose } from "redux"
+import {
+    getCurrentPage,
+    getfollowingInProgress,
+    getisFetching,
+    getPageSize,
+    getTotalUsersCount,
+    getUsers,
+} from "redux/users-selectors"
 
 export type mapStateToPropsType = {
     users: Array<MyPostDataItemType>
@@ -64,12 +72,12 @@ class UsersContainer extends React.Component<MyPostsPropsType> {
 
 let mapStateToProps = (state: AppStateType): mapStateToPropsType => {
     return {
-        users: state.usersPage.users,
-        pageSize: state.usersPage.pageSize,
-        totalUsersCount: state.usersPage.totalUsersCount,
-        currentPage: state.usersPage.currentPage,
-        isFetching: state.usersPage.isFetching,
-        followingInProgress: state.usersPage.followingInProgress,
+        users: getUsers(state),
+        pageSize: getPageSize(state),
+        totalUsersCount: getTotalUsersCount(state),
+        currentPage: getCurrentPage(state),
+        isFetching: getisFetching(state),
+        followingInProgress: getfollowingInProgress(state),
     }
 }
 
