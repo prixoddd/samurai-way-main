@@ -2,13 +2,16 @@ import React from "react"
 import s from "./MyPosts.module.css"
 import MyPost from "./Post/MyPost"
 import { MyPostsPropsType } from "./MyPostsContainer"
-import { Field, reduxForm, SubmitHandler } from "redux-form"
+import { Field, reduxForm, reset } from "redux-form"
 import { maxLengthCreator, requiredField } from "utils/validators/validators"
 import { Textarea } from "components/common/FormsControls/FormsControls"
+import { AppDispatch } from "redux/redux-store"
 
 const MyPosts = (props: MyPostsPropsType) => {
-    let addPost: SubmitHandler<{}, {}, string> = (values: any) => {
+    console.log("Return YO")
+    let addPost: (values: any, dispatch: AppDispatch) => void = (values: any, dispatch: AppDispatch) => {
         props.addPost(values.NewPostText)
+        dispatch(reset("ProfileAddNewPostForm"))
     }
 
     return (
