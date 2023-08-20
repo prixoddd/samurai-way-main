@@ -1,5 +1,6 @@
 import React from "react"
 import s from "../FormsControls/FormsControls.module.sass"
+import { Field } from "redux-form"
 
 type PropsType = {
     input: any
@@ -31,3 +32,16 @@ export const Input: React.FC<PropsType> = ({ input, meta, ...props }) => {
         </FormControl>
     )
 }
+
+export const createField = (
+    placeholder: string | null,
+    name: string,
+    validators: any,
+    component: any,
+    props: any = {},
+    text = "",
+) => (
+    <div>
+        <Field placeholder={placeholder} name={name} component={component} validate={validators} {...props} /> {text}
+    </div>
+)

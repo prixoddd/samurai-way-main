@@ -4,7 +4,7 @@ import {
     MyPostDataItemType,
     setCurrentPage,
     toggleFollowingInProgress,
-    getUsersThunkCreator,
+    requestUsers,
     follow,
     unfollow,
 } from "redux/users-reducer"
@@ -86,7 +86,7 @@ const mmm = {
     unfollow,
     setCurrentPage,
     toggleFollowingInProgress,
-    getUsersThunkCreator,
+    getUsersThunkCreator: requestUsers,
 }
 
 // let AuthRedirectComponent = WithAuthRedirect(UsersContainer)

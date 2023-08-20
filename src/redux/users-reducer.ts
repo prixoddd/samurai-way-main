@@ -1,4 +1,6 @@
 import { usersApi } from "api/api"
+import { AppDispatch } from "redux/redux-store"
+import { updateObjectInArray } from "utils/object-helpers"
 
 const FOLLOW = "FOLLOW"
 const UNFOLLOW = "UNFOLLOW"
@@ -17,23 +19,15 @@ let initialState = {
     followingInProgress: [] as Array<number>,
 }
 
-// let initialState = {
-//     users: [] as Array<MyPostDataItemType>,
-//     pageSize: null,
-//     totalUsersCount: null,
-//     currentPage: null,
-//     isFetching: undefined
-// }
-//
-// type InitialStateType = {
-//     users: Array<MyPostDataItemType>,
-//     pageSize: null | number,
-//     totalUsersCount: null | number,
-//     currentPage: null | number,
-//     isFetching: boolean | undefined
-// }
-
 export type MyPostDataItemType = {
+    id: number
+    name: string
+    status?: string
+    photos: { small: string; large: string }
+    followed: boolean
+}
+
+export type _MyPostDataItemType = {
     id: number
     photoUrl: string
     followed: boolean
@@ -58,12 +52,12 @@ export const usersReducer = (state: InitialStateType = initialState, action: Bos
         case FOLLOW:
             return {
                 ...state,
-                users: state.users.map((el) => (el.id === action.userId ? { ...el, followed: true } : el)),
+                users: updateObjectInArray(state.users, action.userId, "id", { followed: true }),
             }
         case UNFOLLOW:
             return {
                 ...state,
-                users: state.users.map((el) => (el.id === action.userId ? { ...el, followed: false } : el)),
+                users: updateObjectInArray(state.users, action.userId, "id", { followed: false }),
             }
         case SET_USERS:
             return { ...state, users: [...action.users] }
@@ -108,38 +102,36 @@ export const toggleFollowingInProgress = (followingInProgress: boolean, userId: 
         userId,
     }) as const
 
-export const getUsersThunkCreator = (currentPage: number, pageSize: number) => {
-    return (dispatch: any) => {
+export const requestUsers = (currentPage: number, pageSize: number) => {
+    return async (dispatch: AppDispatch) => {
         dispatch(setIsFetchingAC(true))
-
-        usersApi.getUsers(currentPage, pageSize).then((data) => {
-            dispatch(setIsFetchingAC(false))
-            dispatch(setUsersAC(data.items))
-            dispatch(setTotalUsersCountAC(data.totalCount))
-        })
+        debugger
+        const data = await usersApi.getUsers(currentPage, pageSize)
+        dispatch(setIsFetchingAC(false))
+        dispatch(setUsersAC(data.items))
+        dispatch(setTotalUsersCountAC(data.totalCount))
     }
+}
+export const followUnfollowFlow = async (dispatch: AppDispatch, userId: number, apiMethod: any, actionCreator: any) => {
+    dispatch(toggleFollowingInProgress(true, userId))
+
+    let response = await apiMethod(userId)
+    if (response.resultCode == 0) {
+        dispatch(actionCreator(userId))
+    }
+    dispatch(toggleFollowingInProgress(false, userId))
 }
 
 export const follow = (userId: number) => {
-    return (dispatch: any) => {
-        dispatch(toggleFollowingInProgress(true, userId))
-        usersApi.follow(userId).then((data) => {
-            if (data.resultCode == 0) {
-                dispatch(followSuccess(userId))
-            }
-            dispatch(toggleFollowingInProgress(false, userId))
-        })
+    return async (dispatch: AppDispatch) => {
+        let apiMethod = usersApi.follow.bind(usersApi)
+        followUnfollowFlow(dispatch, userId, apiMethod, followSuccess)
     }
 }
 
 export const unfollow = (userId: number) => {
-    return (dispatch: any) => {
-        dispatch(toggleFollowingInProgress(true, userId))
-        usersApi.unfollow(userId).then((data) => {
-            if (data.resultCode == 0) {
-                dispatch(unfollowSuccess(userId))
-            }
-            dispatch(toggleFollowingInProgress(false, userId))
-        })
+    return async (dispatch: AppDispatch) => {
+        let apiMethod = usersApi.unfollow.bind(usersApi)
+        followUnfollowFlow(dispatch, userId, apiMethod, unfollowSuccess)
     }
 }
