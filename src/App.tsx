@@ -1,5 +1,5 @@
 import React, { ComponentType } from "react"
-import { Route, withRouter } from "react-router-dom"
+import { BrowserRouter, Route, withRouter } from "react-router-dom"
 import "./App.css"
 import NavBar from "./components/NavBar/NavBar"
 import News from "./components/News/News"
@@ -10,10 +10,10 @@ import UsersContainer from "./components/Users/UsersContainer"
 import ProfileContainer from "./components/Profile/ProfileContainer"
 import HeaderContainer from "./components/Header/HeaderContainer"
 import Login from "./Login/Login"
-import { connect } from "react-redux"
+import { connect, Provider } from "react-redux"
 import { compose } from "redux"
 import { initializeApp } from "redux/app-reducer"
-import { AppStateType } from "redux/redux-store"
+import store, { AppStateType } from "redux/redux-store"
 import Preloader from "components/common/preloader/Preloader"
 
 export type DialogsItemsDataPropsType = {
@@ -68,4 +68,17 @@ class App extends React.Component<AppProps> {
     }
 }
 
-export default compose<ComponentType>(withRouter, connect(mapStateToProps, { initializeApp }))(App)
+// export default compose<ComponentType>(withRouter, connect(mapStateToProps, { initializeApp }))(App)
+let AppContainer = compose<ComponentType>(withRouter, connect(mapStateToProps, { initializeApp }))(App)
+
+const SamuraiJsApp = () => {
+    return (
+        <BrowserRouter>
+            <Provider store={store}>
+                <AppContainer />
+            </Provider>
+        </BrowserRouter>
+    )
+}
+
+export default SamuraiJsApp

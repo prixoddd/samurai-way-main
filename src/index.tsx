@@ -1,10 +1,8 @@
 import React from "react"
 import ReactDOM from "react-dom"
-import store from "./redux/redux-store"
 import "./index.css"
-import App, { DialogsItemsDataPropsType, DialogsMessagesDataPropsType, ProfilePostDataPropsType } from "./App"
-import { BrowserRouter } from "react-router-dom"
-import { Provider } from "react-redux"
+import { DialogsItemsDataPropsType, DialogsMessagesDataPropsType, ProfilePostDataPropsType } from "App"
+import SamuraiJsApp from "./App"
 
 export type AppStateTypeMinus = {
     profilePage: {
@@ -18,11 +16,4 @@ export type AppStateTypeMinus = {
     }
 }
 
-ReactDOM.render(
-    <BrowserRouter>
-        <Provider store={store}>
-            <App />
-        </Provider>
-    </BrowserRouter>,
-    document.getElementById("root"),
-)
+ReactDOM.render(<SamuraiJsApp />, document.getElementById("root"))
