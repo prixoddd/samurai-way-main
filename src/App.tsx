@@ -1,5 +1,5 @@
 import React, { ComponentType } from "react"
-import { BrowserRouter, Route, withRouter } from "react-router-dom"
+import { HashRouter, Route, withRouter } from "react-router-dom"
 import "./App.css"
 import NavBar from "./components/NavBar/NavBar"
 import News from "./components/News/News"
@@ -75,11 +75,11 @@ let AppContainer = compose<ComponentType>(withRouter, connect(mapStateToProps, {
 
 const SamuraiJsApp = () => {
     return (
-        <BrowserRouter basename={process.env.PUBLIC_URL}>
+        <HashRouter basename={process.env.PUBLIC_URL}>
             <Provider store={store}>
                 <AppContainer />
             </Provider>
-        </BrowserRouter>
+        </HashRouter>
     )
 }
 
