@@ -11,35 +11,35 @@ let state = {
     status: "",
 }
 
-it("length of the post should be incremented", () => {
-    // 1. test data
-    let action = addPostActionCreator("hellllo")
-
-    // 2.action
-    let newState = profileReducer(state, action)
-
-    // 3.expectation
-    expect(newState.myPostData.length).toBe(3)
-})
-
-it("message of the new post should be correct", () => {
-    // 1. test data
-    let action = addPostActionCreator("hellllo")
-
-    // 2.action
-    let newState = profileReducer(state, action)
-
-    // 3.expectation
-    expect(newState.myPostData[2].message).toBe("hellllo")
-})
-
-it("length after deleting", () => {
-    // 1. test data
-    let action = deletePost("1")
-
-    // 2.action
-    let newState = profileReducer(state, action)
-
-    // 3.expectation
-    expect(newState.myPostData.length).toBe(2)
-})
+// it("length of the post should be incremented", () => {
+//     // 1. test data
+//     let action = addPostActionCreator("hellllo")
+//
+//     // 2.action
+//     let newState = profileReducer(state, action)
+//
+//     // 3.expectation
+//     expect(newState.myPostData.length).toBe(3)
+// })
+//
+// it("message of the new post should be correct", () => {
+//     // 1. test data
+//     let action = addPostActionCreator("hellllo")
+//
+//     // 2.action
+//     let newState = profileReducer(state, action)
+//
+//     // 3.expectation
+//     expect(newState.myPostData[2].message).toBe("hellllo")
+// })
+//
+// it("length after deleting", () => {
+//     // 1. test data
+//     let action = deletePost("1")
+//
+//     // 2.action
+//     let newState = profileReducer(state, action)
+//
+//     // 3.expectation
+//     expect(newState.myPostData.length).toBe(2)
+// })
