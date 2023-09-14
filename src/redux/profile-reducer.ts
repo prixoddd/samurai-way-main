@@ -1,7 +1,6 @@
 import { Dispatch } from "redux"
 import { profileAPI, usersApi } from "api/api"
 import { v1 } from "uuid"
-import { ProfileType } from "components/Profile/ProfileContainer"
 
 const ADD_POST = "ADD-POST"
 const SET_USER_PROFILE = "SET_USER_PROFILE"
@@ -67,7 +66,6 @@ export const profileReducer = (state: InitialStateType = initialState, action: P
             }
         }
         case SAVE_PHOTO_SUCCESS: {
-            debugger
             return {
                 ...state,
 
@@ -110,14 +108,14 @@ export const updateStatus = (status: string) => async (dispatch: Dispatch) => {
     }
 }
 
-export const savePhoto = (photo: any) => async (dispatch: Dispatch) => {
-    debugger
+export const saveUserPhoto = (photo: any) => async (dispatch: Dispatch) => {
     const response = await profileAPI.updatePhoto(photo)
-    debugger
     if (response.data.resultCode === 0) {
         dispatch(savePhotoSuccess(response.data.data.photos))
+
         console.log("photo is successfully changed")
     }
+    return response
 }
 
 export default profileReducer

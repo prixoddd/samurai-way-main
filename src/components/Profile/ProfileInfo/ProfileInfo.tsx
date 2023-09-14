@@ -23,8 +23,9 @@ const ProfileInfo = ({ profile, status, updateStatus, isOwner, savePhoto }: Prof
     }
 
     const ButtonHandler = () => {
-        savePhoto(photo)
-        buttonCleaner()
+        savePhoto(photo).finally(() => {
+            buttonCleaner()
+        })
     }
 
     const MainPhotoSelectedOn = (e: any) => {
