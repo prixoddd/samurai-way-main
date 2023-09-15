@@ -134,23 +134,20 @@ export const saveProfile =
 
         const response = await profileAPI.saveProfile(profile)
 
+        const text = response.data.messages[0]
+        const regex = /\(([^->]+)->([^)]+)\)/
+        const match = text.match(regex)
+        const firstString = match[1].trim().toLowerCase()
+        const secondString = match[2].trim().toLowerCase()
+
         if (response.data.resultCode === 0 && userId) {
             dispatch(getUserProfile(userId.toString()))
         } else {
-            dispatch(stopSubmit("edit-profile", { _error: response.data.messages[0] }))
+            // dispatch(stopSubmit("edit-profile", { _error: response.data.messages[0] }))
+            dispatch(stopSubmit("edit-profile", { [firstString]: { [secondString]: response.data.messages[0] } }))
             return Promise.reject()
         }
         // let message = response.data.messages.length > 0 ? response.data.messages[0] : "Some error"
-
-        // const text = response.data.messages[0]
-        // const regex = /\(([^->]+)->([^)]+)\)/
-        // const match = text.match(regex)
-        // const firstString = match[1].trim().toLowerCase()
-        // const secondString = match[2].trim().toLowerCase()
-        // console.log(firstString)
-        // console.log(secondString)
-
-        // dispatch(stopSubmit("edit-profile", { `"${firstString}"`: { "facebook": response.data.messages[0] } }))
     }
 
 export default profileReducer
