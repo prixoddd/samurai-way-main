@@ -1,6 +1,7 @@
-import { Dispatch } from "redux"
 import { profileAPI, usersApi } from "api/api"
 import { v1 } from "uuid"
+import { AppDispatch, AppStateType, AppThunk } from "redux/redux-store"
+import { stopSubmit } from "redux-form"
 
 const ADD_POST = "ADD-POST"
 const SET_USER_PROFILE = "SET_USER_PROFILE"
@@ -90,32 +91,66 @@ export const setStatus = (status: string) => ({ type: SET_STATUS, status }) as c
 export const deletePost = (postId: string) => ({ type: DELETE_POST, postId }) as const
 export const savePhotoSuccess = (newPhoto: string) => ({ type: SAVE_PHOTO_SUCCESS, newPhoto }) as const
 
-export const getUserProfile = (userId: string) => async (dispatch: Dispatch) => {
-    const response = await usersApi.getProfile(userId)
-    dispatch(setUserProfileAC(response.data))
-}
-
-export const getStatus = (userId: string) => async (dispatch: Dispatch) => {
-    const response = await profileAPI.getStatus(userId)
-    dispatch(setStatus(response.data))
-}
-
-export const updateStatus = (status: string) => async (dispatch: Dispatch) => {
-    const response = await profileAPI.updateStatus(status)
-    if (response.data.resultCode === 0) {
-        dispatch(setStatus(status))
-        console.log("lololo")
+export const getUserProfile =
+    (userId: string): AppThunk =>
+    async (dispatch: AppDispatch) => {
+        const response = await usersApi.getProfile(userId)
+        dispatch(setUserProfileAC(response.data))
     }
-}
 
-export const saveUserPhoto = (photo: any) => async (dispatch: Dispatch) => {
-    const response = await profileAPI.updatePhoto(photo)
-    if (response.data.resultCode === 0) {
-        dispatch(savePhotoSuccess(response.data.data.photos))
-
-        console.log("photo is successfully changed")
+export const getStatus =
+    (userId: string): AppThunk =>
+    async (dispatch: AppDispatch) => {
+        const response = await profileAPI.getStatus(userId)
+        dispatch(setStatus(response.data))
     }
-    return response
-}
+
+export const updateStatus =
+    (status: string): AppThunk =>
+    async (dispatch: AppDispatch) => {
+        const response = await profileAPI.updateStatus(status)
+        if (response.data.resultCode === 0) {
+            dispatch(setStatus(status))
+            console.log("lololo")
+        }
+    }
+
+export const saveUserPhoto =
+    (photo: any): AppThunk =>
+    async (dispatch: AppDispatch) => {
+        const response = await profileAPI.updatePhoto(photo)
+        if (response.data.resultCode === 0) {
+            dispatch(savePhotoSuccess(response.data.data.photos))
+
+            console.log("photo is successfully changed")
+        }
+        return response
+    }
+
+export const saveProfile =
+    (profile: any): AppThunk =>
+    async (dispatch: AppDispatch, getState: () => AppStateType) => {
+        const userId = getState().auth.id
+
+        const response = await profileAPI.saveProfile(profile)
+
+        if (response.data.resultCode === 0 && userId) {
+            dispatch(getUserProfile(userId.toString()))
+        } else {
+            dispatch(stopSubmit("edit-profile", { _error: response.data.messages[0] }))
+            return Promise.reject()
+        }
+        // let message = response.data.messages.length > 0 ? response.data.messages[0] : "Some error"
+
+        // const text = response.data.messages[0]
+        // const regex = /\(([^->]+)->([^)]+)\)/
+        // const match = text.match(regex)
+        // const firstString = match[1].trim().toLowerCase()
+        // const secondString = match[2].trim().toLowerCase()
+        // console.log(firstString)
+        // console.log(secondString)
+
+        // dispatch(stopSubmit("edit-profile", { `"${firstString}"`: { "facebook": response.data.messages[0] } }))
+    }
 
 export default profileReducer
