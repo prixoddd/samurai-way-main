@@ -12,6 +12,7 @@ import {
 import { AppStateType } from "redux/redux-store"
 import { RouteComponentProps, withRouter } from "react-router-dom"
 import { compose } from "redux"
+import { WithAuthRedirect } from "hoc/withAuthRedirect"
 
 export type ProfileType = {
     aboutMe: string
@@ -108,5 +109,5 @@ let mapStateToProps = (state: AppStateType): mapStatePropsType => {
 export default compose<React.ComponentType>(
     connect(mapStateToProps, { getUserProfile, getStatus, updateStatus, savePhoto: saveUserPhoto, saveProfile }),
     withRouter,
-    // WithAuthRedirect
+    WithAuthRedirect,
 )(ProfileContainer)
