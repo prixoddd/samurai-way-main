@@ -134,15 +134,14 @@ export const saveProfile =
 
         const response = await profileAPI.saveProfile(profile)
 
-        const text = response.data.messages[0]
-        const regex = /\(([^->]+)->([^)]+)\)/
-        const match = text.match(regex)
-        const firstString = match[1].trim().toLowerCase()
-        const secondString = match[2].trim().toLowerCase()
-
         if (response.data.resultCode === 0 && userId) {
             dispatch(getUserProfile(userId.toString()))
         } else {
+            const text = response.data.messages[0]
+            const regex = /\(([^->]+)->([^)]+)\)/
+            const match = text.match(regex)
+            const firstString = match[1].trim().toLowerCase()
+            const secondString = match[2].trim().toLowerCase()
             // dispatch(stopSubmit("edit-profile", { _error: response.data.messages[0] }))
             dispatch(stopSubmit("edit-profile", { [firstString]: { [secondString]: response.data.messages[0] } }))
             return Promise.reject()

@@ -20,6 +20,7 @@ import {
     getTotalUsersCount,
     getUsers,
 } from "redux/users-selectors"
+import { WithAuthRedirect } from "hoc/withAuthRedirect"
 
 export type mapStateToPropsType = {
     users: Array<MyPostDataItemType>
@@ -93,7 +94,4 @@ const mmm = {
 
 // export default WithAuthRedirect(connect(mapStateToProps, mmm) (UsersContainer));
 
-export default compose<React.ComponentType>(
-    // WithAuthRedirect,
-    connect(mapStateToProps, mmm),
-)(UsersContainer)
+export default compose<React.ComponentType>(WithAuthRedirect, connect(mapStateToProps, mmm))(UsersContainer)
