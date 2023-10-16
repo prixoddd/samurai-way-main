@@ -92,11 +92,11 @@ let AppContainer = compose<ComponentType>(withRouter, connect(mapStateToProps, {
 
 const SamuraiJsApp = () => {
     return (
-        <BrowserRouter>
+        <HashRouter>
             <Provider store={store}>
                 <AppContainer />
             </Provider>
-        </BrowserRouter>
+        </HashRouter>
     )
 }
 
